@@ -1,9 +1,12 @@
-fibonacci = [0]
-previous_number = 1
 
-previous_number < 100
-  fibonacci.push(previous_number)
-  previous_number = fibonacci[-1] + fibonacci[-2]
+arr = [0, 1]
+
+while true do
+  next_value = arr[-2] + arr[-1]
+
+  break if next_value > 100
+
+  arr.push next_value
 end
 
-puts fibonacci
+puts arr
