@@ -1,32 +1,34 @@
-months = {
-  january: 31,
-  february: 28,
-  march: 31,
-  april: 30,
-  may: 31,
-  june: 30,
-  july: 31,
-  august: 31,
-  september: 30,
-  october: 31,
-  november: 30,
-  december: 31
-}
-
-puts "Enter day"
-input_day = gets.to_i
-puts "Enter month"
-input_month = gets.to_i
-puts "Enter year"
-input_year = gets.to_i
-
-
-months[:february] = 29 if (year % 4).zero? || (year % 400).zero?
-
-result = day
-
+months = [31,28,31,30,31,30,31,31,30,31,30,31]
+day_count = 0
+count = 0
+count_days_in_months = 0
 i = 0
-while i < month
-  result += months.values[i]
-  i += 1
+print "Enter date: "
+day = gets.chomp.to_i
+
+print "Enter month: "
+month = gets.chomp.to_i
+
+print "Enter year: "
+year = gets.chomp.to_i
+
+if year % 4 == 0 && year % 100 != 0 || year % 400 == 0 
+  months[1] = 29
 end
+
+if month > 1 
+  count = month - 1
+else
+  puts "This is #{day} day #{year} year."
+  exit
+end
+
+count.times do |i|
+    
+  count_days_in_months = count_days_in_months + months[i]
+  i = i + 1
+    
+end
+
+day_count = count_days_in_months + day
+puts "This is #{day_count} day"
