@@ -1,19 +1,22 @@
 months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-puts "Year:"
-year = gets.to_i
-
-puts "Month: "
-month = gets.to_i
-
-puts "Day: "
+puts 'Date: '
 day = gets.to_i
 
-leap_year = (year % 400).zero? || (year % 4).zero? && (year % 100 != 0)
-months[1] = 29 if leap_year
+puts 'Month: '
+month = gets.to_i
 
-summ = 0
-summ += months.take(month - 1).sum if month > 1
-summ += day
+puts 'Year:' 
+year = gets.to_i
 
-puts summ
+months[:february] = 29 if (year % 4).zero? || (year % 400).zero?
+
+result = day
+
+i = 0
+while i < month
+  result += months.values[i]
+  i += 1
+end
+
+puts "DATE #{result} "
