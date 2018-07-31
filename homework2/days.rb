@@ -1,21 +1,19 @@
+months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-day_count = count_days_in_months + day
-puts "This is #{day_count} day"
-
-puts "Please, enter day:"
-day = gets.to_i
-
-puts "Please, enter month:"
-month = gets.to_i
-
-puts "Please, enter year:"
+puts "Year:"
 year = gets.to_i
 
+puts "Month: "
+month = gets.to_i
 
-days_year = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-days_year[1] = 29 if year % 400 == 0 || year % 4 == 0 && year % 100 != 0
+puts "Day: "
+day = gets.to_i
 
-num = 0
-days_year[0...month - 1].each { |month| num += month }
-num += day
-puts num
+leap_year = (year % 400).zero? || (year % 4).zero? && (year % 100 != 0)
+months[1] = 29 if leap_year
+
+summ = 0
+summ += months.take(month - 1).sum if month > 1
+summ += day
+
+puts summ
