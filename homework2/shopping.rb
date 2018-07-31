@@ -1,35 +1,35 @@
 
-products = {}
+goods = {}
 
-until products['stop']
-  puts 'Name:'
-  product_name = gets.chomp
+loop do 
+  puts "Name : "
+  item = gets.chomp
 
-  break if product_name == 'stop'
+  break if item == "стоп"
 
-  puts 'Price'
-  product_price = gets.to_i
+  puts "Summ : "
+  summ = gets.to_f 
 
-  puts 'Quantity'
-  product_count = gets.to_f
+  puts "Quantity :"
+  quantity = gets.to_f
 
-  products[product_name] = {
-    price: product_price,
-    count: product_count,
-    total: (product_price * product_count).to_i
-  }
+  goods[item] = { summ: summ, quantity: quantity }
 end
 
-puts products
+if goods.any? 
+  total_cost = 0
 
-total_sum = 0
+  goods.each do  |item, details|
+    cost = details[:summ]* details [:quantity]
 
-products.each_value do |product|
-  total_sum += product[:total]
+    puts "Name : #{item}"
+    puts "Summ : #{details["summ"]}"
+    puts "Total : #{cost}"
+    puts ""
+
+    total_cost += cost
+  end
+
+  puts "Final price : #{total_cost}"
+
 end
-
-puts '-----'
-puts "Final Price #{total_sum}"
-
-
-
