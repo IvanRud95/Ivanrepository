@@ -1,12 +1,11 @@
+fibonacci = [0]
 
-arr = [0, 1]
+next_step = 1
 
-while true do
-  next_value = arr[-2] + arr[-1]
+while next_step < 100
 
-  break if next_value > 100
-
-  arr.push next_value
+  fibonacci << next_step
+  next_step = fibonacci[-2] + fibonacci[-1]
 end
 
-puts arr
+puts fibonacci
