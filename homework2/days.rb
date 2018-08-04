@@ -19,4 +19,4 @@ while i < month
   i += 1
 end
 
-puts "DATE #{result} "
+puts 'DATE #{result} '
