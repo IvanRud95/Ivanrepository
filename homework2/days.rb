@@ -14,4 +14,4 @@ days [1] = 29 if year % 400 == 0 || year % 4 == 0 && year % 100 != 0
 num = 0
 days [0...month - 1].each { |month| num += month }
 num += day
-puts num
+puts "this is #{num} day"
