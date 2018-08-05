@@ -1,13 +1,17 @@
-puts "Monthes: "
-months = { "january" => 31, "february" => 28, "march" => 31, "april" => 30, 
-  "may" => 31, "june" => 30, "july" => 31, "august" => 31, "september" => 30, 
-  "october" => 31, "november" => 30, "december" => 31 }
-months.each do |month, day|
-  if day%30 == 0
-    puts month   
-  end
-end
+days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-puts
+puts "Please, enter day:"
+day = gets.to_i
 
-months.each {|key, value| puts key if value == 30}
+puts "Please, enter month:"
+month = gets.to_i
+
+puts "Please, enter year:"
+year = gets.to_i
+
+days [1] = 29 if year % 400 == 0 || year % 4 == 0 && year % 100 != 0
+
+num = 0
+days [0...month - 1].each { |month| num += month }
+num += day
+puts num
