@@ -1,6 +1,7 @@
 class Station
 
-  attr_reader :name, :trains
+  attr_reader :name, 
+  attr_reader :trains
 
   def initialize(name)
     @name = name
@@ -12,7 +13,7 @@ class Station
   end
 
   def delete_train(train)
-    @trains.delete(train) { |train| "Train #{train} not found" }
+    @trains.delete(train) 
   end
 
   def trains_list(type = :all)
