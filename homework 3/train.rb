@@ -18,12 +18,12 @@ class Train
   end
 
   def add_wagon
-    @speed.zero? ? @wagons += 1 : nil
+    @number_of_wagons += 1 if @speed == 0
   end
 
+
   def remove_wagon
-    @speed.zero? ? @wagons += 1 : nil
-    end
+    @number_of_wagons -= 1 if @speed == 0 && @number_of_wagons > 0
   end
 
  def add_route(route)
@@ -33,18 +33,23 @@ class Train
   end
 
   def move_forward
-    if @current_station >= @route.stations.length - 1
-      @route.stations.last
+    if next_station
+      current_station.send_the_train(self)
+      next_station.take_the_train(self)
+      @current_station_index += 1
     else
-      @route.stations[@current_station + 1]
-      @current_station += 1
+      puts "last station"
+    end
+  end
 
 
   def move_back
-    if @train_station > 0 do
-      current_station.send_train(self)
-      @train_station -= 1
-      current_station.add_train(self)
+    if previous_station
+      current_station.send_the_train(self)
+      previous_station.take_the_train(self)
+      @current_station_index -= 1
+    else
+      puts "first station"
     end
   end
 
