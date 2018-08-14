@@ -5,7 +5,7 @@ class Train
   def initialize(number,type,wagons)
     @number = number
     @type = type
-    @wagons = wagons
+    @wagons = 0
     @speed = 0
    end
 
@@ -24,8 +24,10 @@ class Train
    end
 
   def remove_wagon
-    @wagons -= 1 if @speed == 0 && @wagons > 0
+   if @speed == 0 && @wagons > 0
+     @wagons -= 1
    end
+end
 
  def add_route(route)
     @route = route
