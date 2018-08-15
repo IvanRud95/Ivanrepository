@@ -1,23 +1,24 @@
 class Route
+  
+  attr_reader :stations :first :last
 
-  attr_reader :stations
-
- def initialize(station_start, station_end)
-  @stations = [station_start, station_end]
-  end
+  def initialize(first, last)
+   @stations = [first, last]
+   @route = []
+ end
 
    def add_station(station)
-    stations.insert(-2, station)
-  end
+    @stations.insert(-2, station)
+ end
 
-   def remove_station(station)
-     if ![@stations.first, @stations.last].include?(station)
-      @stations.delete(station)
-    end
-  end
+   def display_station(station)
+    @stations.each { |station| puts station.name }
+ end
 
-   def display_stations(station)
-   @stations
+   def del_station(station)
+   if first_station != station && last_station != station
+     @stations.delete(station)
+   end
  end
 
    def first_station

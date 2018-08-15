@@ -2,6 +2,7 @@ class Station
 
   attr_reader :name, :trains
 
+
   def initialize(name)
     @name = name
     @trains = []
@@ -11,7 +12,7 @@ class Station
     @trains << train
   end
 
-  def delete_train(train)
+  def send_train(train)
     @trains.delete(train)
   end
 
