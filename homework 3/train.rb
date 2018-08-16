@@ -12,7 +12,7 @@
    end
 
    def add_speed
-     @speed += 1
+    @speed += 1
    end
 
    def low_speed
