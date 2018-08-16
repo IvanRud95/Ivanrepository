@@ -44,7 +44,7 @@
       @station_index += 1
      else
       puts "last station"
-    e nd
+    end
    end
 
 
