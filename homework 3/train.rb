@@ -1,28 +1,24 @@
-
-
- class Train
+class Train
 
   attr_reader :type, :wagons, :route, :number, :speed
 
    def initialize(number,type,wagons)
-    @number = number
-    @type = type
-    @wagons = wagons
-    @speed = 0
+     @number = number
+     @type = type
+     @wagons = wagons
+     @speed = 0
    end
 
    def add_speed
-    @speed += 1
+     @speed += 1
    end
 
    def low_speed
-    @speed -= 1 if speed != 0
+     @speed -= 1 if speed != 0
    end
 
-   def add_wagon
-     if @speed == 0
-        @wagons + 1
-     end
+   def add_wagon(wagon)
+     @wagons += 1 if @speed == 0
    end
 
    def remove_wagon
@@ -33,7 +29,7 @@
 
    def add_route(route)
     @route = route
-     route.first_station.add_train(self)
+      route.first_station.add_train(self)
     @station_index = 0
    end
 
@@ -44,7 +40,7 @@
       @station_index += 1
      else
       puts "last station"
-    end
+     end
    end
 
 
