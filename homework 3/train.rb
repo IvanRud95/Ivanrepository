@@ -23,7 +23,7 @@ class Train
 
    def remove_wagon
     if @speed == 0 && @wagons > 0
-     @wagons -= 1
+      @wagons -= 1
     end
    end
 
