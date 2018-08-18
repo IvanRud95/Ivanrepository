@@ -12,7 +12,7 @@ class Route
    end
 
    def display_station(station)
-      @stations.each { |station| puts station.name }
+     @stations.each { |station| puts station.name }
    end
 
    def del_station(station)
@@ -22,10 +22,10 @@ class Route
     end
 
    def first_station
-      @stations.first
+     @stations.first
    end
 
    def last_station
-      @stations.last
+     @stations.last
    end
  end
