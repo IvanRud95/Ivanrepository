@@ -19,7 +19,7 @@ class Route
      if first_station != station && last_station != station
        @stations.delete(station)
      end
-    end
+   end
 
    def first_station
      @stations.first
@@ -28,4 +28,4 @@ class Route
    def last_station
      @stations.last
    end
- end
+end
