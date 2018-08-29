@@ -12,3 +12,6 @@ require_relative 'railway_system.rb'
 @trains = []
 @routes = []
 @wagons = []
+
+main = Main.new
+main.start
