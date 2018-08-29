@@ -1,12 +1,9 @@
 class PassengerTrain < Train
- validate :id, :presence
- validate :wagons, :each_type, PassengerWagon
+   attr_reader :type
 
 
-  def initialize(number, manufacture_name)
-    super(number, manufacture_name)
-    @type = :passenger
-  end
-
-  
+   def initialize(number)
+     super(number )
+     @type = :passenger
+   end
 end
