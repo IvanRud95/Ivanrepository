@@ -65,4 +65,3 @@ class Train
    def next_station
      route.stations[@station_index + 1 ] if @station_index < route.stations.length - 1
    end
-end
