@@ -83,5 +83,5 @@ loop do
            else
              choosen_train.back
            end
-    end
-end
+     end
+ end
