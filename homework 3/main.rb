@@ -8,10 +8,7 @@ require_relative 'passenger_coach.rb'
 require_relative 'cargo_coach.rb'
 require_relative 'railway_system.rb'
 
-@stations = []
-@trains = []
-@routes = []
-@wagons = []
+puts "Lets create Railroad."
 
 main = Main.new
 main.start
