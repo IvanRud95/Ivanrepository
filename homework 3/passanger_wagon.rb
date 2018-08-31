@@ -1,5 +1,4 @@
 class PassengerWagon < Wagon
-  extend Accessors
 
   def initialize(number)
     super

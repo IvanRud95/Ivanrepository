@@ -1,6 +1,5 @@
 class CargoWagon < Wagon
-  
-   def initialize(type = :cargo)
-     super
+   def initialize
+    super(:cargo)
    end
 end
