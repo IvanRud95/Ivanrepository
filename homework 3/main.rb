@@ -7,4 +7,4 @@ require_relative 'passenger_wagon.rb'
 require_relative 'cargo_wagon.rb'
 require_relative 'wagon.rb'
 
-@interface = Interface.new
+@interface_menu = Interface.new
