@@ -1,85 +1,79 @@
 Class Interface
 
-  def initialize
-    @interface_menu = Interface.new
-  end
-
-puts "Lets create Railroad."
-
-attr_reader :stations, :trains, :routes, :wagons
-
- def initialize
-    @stations = []
-    @trains = []
-    @routes = []
-    @wagons = []
-
-  def display_station(station)
-    puts "list of stations"
-    @stations.each { |station| puts station.name }
-  end
-
-loop do
-   puts '1. Create Station'
-   puts '2. Create Train'
-   puts '3. Create Route'
-   puts '4. Give route to train'
-   puts '5. Add wagon'
-   puts '6. Less wagon'
-   puts '7. Train to route '
-   puts '0. Exit'
-   puts 'Choose variate: '
-    input = gets.to_i
-  break if input.zero?
-
-  if input == 1
-    puts 'Put name of the station'
-    station_name = gets.chomp
-    station_variable = Station.new(station_name)
-    @stations.push(station_variable)
-  end
-
-  if input == 2
-
-    def create_train_type(number, type)
-      if type == "cargo"
-        @trains_list << CargoTrain.new(number)
-      elsif type == "pass"
-        @trains_list << PassangerTrain.new(number)
-      else
-        puts "Error, you must enter 'cargo' or 'pass'!"
-      end
+  def base_menu
+      puts "1.Stations"
+      puts "2.Routes"
+      puts "3.Trains"
+      puts "4.Wagons"
+      puts "0.Exit"
+      gets.to_i
+    end
+    def mistake_menu
+      puts "Error"
     end
 
-   if input == 3
-    puts 'Put name of first and last station'
-     first_station = gets.chomp
-     last_station = gets.chomp
-     detect_first_station = @stations.detect { |station| station.name == first_station }
-     detect_last_station = @stations.detect { |station| station.name == last_station }
-     route = Route.new(detect_first_station, detect_last_station)
-     routes.push(route)
-   end
+    def stations_menu
+      puts "1.Create station"
+      puts "2.Station list"
+      puts "3.Delete station"
+      puts "4.Train list"
+      puts "0.Exit"
+      gets.to_i
+    end
 
-   if input == 4
-       puts 'Put train number'
-       input_train_number = gets.chomp
-       puts 'Put route number'
-       input_route_number = gets.to_i
+    def create_station_menu
+      puts "Put station name"
+      gets.chomp
+    end
 
-       choosen_train = all_trains.detect { |train| train.number == input_train_number }
-       choosen_train.receive_train_trace_list(all_routes[input_route_number - 1].output)
+    def stations_name_exist
+      puts "Station name already exist"
+    end
 
-    if input == 7
-           puts 'Put train numer'
-           input_train_number = gets.chomp
-           go_back = gets.chomp
+    def create_station
+      puts "Station has been created"
+    end
 
-           choosen_train = trains.detect { |train| train.number == input_train_number }
-           if go_back == '1'
-             choosen_train.go
-           else
-             choosen_train.back
-           end
-     end
- end
+
+    def remove_station_menu
+      puts "Put station"
+      gets.chomp
+    end
+
+    def no_station_for_delete
+      puts "No station for remove"
+    end
+
+    def station_delete
+      puts "Station deleted"
+    end
+
+    def trains_at_station_menu
+      puts "Put station name"
+      gets.chomp
+    end
+
+    def station_no_exist
+      puts "This station dont exist"
+    end
+
+    def input_anything
+      puts "You dont put anything"
+    end
+
+    def station_created
+      puts "Station has been created"
+    end
+
+    def station_deleted
+      puts "Station has been deleted"
+    end
+
+    def routes_managment_menu
+    puts "1.Create route"
+    puts "2.Look for routes"
+    puts "3.Add stationm to route"
+    puts "4.Delete station"
+    puts "0.exit"
+    gets.to_i
+  end
