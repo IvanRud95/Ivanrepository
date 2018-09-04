@@ -1,20 +1,22 @@
-a = gets.to_i
-print "a: "
-b = gets.to_i
-print "b: "
-c = gets.to_i
-print "c: "
+puts "Enter а"
+a = gets.chomp.to_i
 
-discriminant = b**2 - 4 * a * c
+puts "Enter b"
+b = gets.chomp.to_i
 
-if discriminant < 0
-  puts "no solution"
-elsif  d==0
-  x = -b / (2 * a)
-  puts "Equation root x = #{x}"
-else
-   dsqrt = Math.sqrt(d)
-    x1 = (-b + dsqrt)/(2 * a)
-    x2 = (-b - dsqrt)/(2 * a)
-    puts "2 roots: x1 = #{x1}, x2 = #{x2}"
+puts "Enter c"
+c = gets.chomp.to_i
+
+d = b ** 2 - 4 * a * c
+
+if d >= 0
+  x1 = (- b + Math.sqrt(d) ) / 2 * a
+  x2 = (- b - Math.sqrt(d) ) / 2 * a
+    if d > 0
+       puts "Discriminant = #{d}, x1  = #{x1}, x2 = #{x2}"
+    elsif d == 0
+       puts "Discriminant = #{d}, x = #{x1}"
+    end
+  else
+  puts "No solution"
 end
