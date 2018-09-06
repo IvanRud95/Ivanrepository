@@ -1,1 +1,3 @@
-Class Start
+class Start
+  
+  end
