@@ -23,7 +23,7 @@ class Interface
       gets.chomp
    end
 
-   def stations_name_taken
+   def stations_name_exist
       puts "Station already exist"
    end
 
@@ -199,46 +199,44 @@ class Interface
 
    def not_wagons
       puts "Theris no wagons yet"
-    end
+   end
 
-    def number_wagon
+   def number_wagon
       puts "Enter wagon number"
       gets.to_i
-    end
+   end
 
-    def not_number_wagon
-     puts "There is no wagon with this number"
+   def not_number_wagon
+      puts "There is no wagon with this number"
+   end
 
-  def only_cargo_passenger
+   def only_cargo_passenger
      puts "Only cargo wagon can be added"
      puts "Only passanger wagon can be added"
-  end
+   end
 
    def number_wagon_remove
       puts "Enter wagon number to remove"
-    gets.to_i
-     end
+      gets.to_i
+   end
 
-     def cargo_wagon_already
+   def cargo_wagon_already
       puts "Cargo wagon with this number already exist"
-     end
+   end
 
-     def passenger_wagon_already
-       puts "Passenger wagon with this number already exist"
-     end
+   def passenger_wagon_already
+      puts "Passenger wagon with this number already exist"
+   end
 
-     def can_not_add_wagon
+   def can_not_add_wagon
        puts "You cant add this wagon to the train"
-     end
+   end
 
-     def train_already_title
+   def train_already_title
        puts "Train with this number already exist"
-     end
+   end
 
-     def wagon_already
-       puts "Wagon with this number already exist"
-    end
-
-  end
-
- end
+   def wagon_already
+      puts "Wagon with this number already exist"
+   end
+end
