@@ -281,7 +281,7 @@ class Start
 
           def create_wagon
             number = @interface.create_wagon_menu
-            if check_wagon_number(number)
+            if correct_type?(number)
               @interface.wagon_already
             else
               type = @interface.type_wagon

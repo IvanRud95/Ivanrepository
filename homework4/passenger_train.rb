@@ -5,12 +5,12 @@ class PassengerTrain < Train
     super(number,"passenger")
   end
 
-  def check_type_wagon?(wagon)
+  def correct_type?(wagon)
     wagon.type == "passenger"
   end
 
   def add_wagon(wagon)
-    if check_type_wagon?(wagon)
+    if correct_type?(wagon)
       super(wagon)
     else
      puts "You cannt add this wagon"
