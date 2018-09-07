@@ -7,7 +7,7 @@
    require_relative 'wagon'
    require_relative 'cargo_wagon'
    require_relative 'passenger_wagon'
-   require_relative 'Start'
+   require_relative 'start'
    require_relative 'interface'
 
   start = Start.new
