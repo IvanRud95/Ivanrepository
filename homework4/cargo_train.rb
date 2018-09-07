@@ -4,7 +4,7 @@ class CargoTrain < Train
     super(number,"cargo")
   end
 
-  def check_type_vagon?(wagon)
+  def check_type_wagon?(wagon)
     wagon.type == "cargo"
   end
 

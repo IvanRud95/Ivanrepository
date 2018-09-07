@@ -186,7 +186,7 @@ class Interface
    end
 
    def create_wagon_menu
-     puts "Create wagon menu"
+     puts "Enter wagon name"
      gets.to_i
    end
 

@@ -12,7 +12,7 @@ class PassengerTrain < Train
   def add_wagon(wagon)
     if check_type_wagon?(wagon)
       super(wagon)
-     lse
+    else
      puts "You cannt add this wagon"
     end
    end
