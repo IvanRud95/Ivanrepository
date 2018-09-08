@@ -1,18 +1,13 @@
 class Start
 
-      attr_reader :stations, :trains, :routes, :wagons
 
       def initialize
-        @stations = []
-        @trains = []
-        @routes = []
-        @wagons = []
         @interface = Interface.new
       end
 
       def main
         loop do
-          item = @interface.main_menu
+          item = @interface.menu(:list)
           break if item == 0
           case item
           when 1 then stations_managment
@@ -29,7 +24,7 @@ class Start
 
       def stations_managment
         loop do
-          item = @interface.stations_managment_menu
+          item = @interface.menu(:stations)
           break if item == 0
           case item
           when 1 then create_station
@@ -95,11 +90,23 @@ class Start
       end
 
       def routes_managment
+          if @stations.length == 0
+            @interface.check_stations_length
+          else
+            loop do
+              item = @interface.(:routes)
+              break if item == 0
+              routes(:routes)
+            end
+          end
+       end
+
+      def routes_managment
         if @stations.length == 0
            @interface.check_stations_length
         else
           loop do
-            item = @interface.routes_managment_menu
+            item = @interface.menu(:routes)
             break if item == 0
             case item
             when 1 then create_route
@@ -171,7 +178,7 @@ class Start
 
           def trains_managment
             loop do
-              item = @interface.trains_managment_menu
+              item = @interface.menu (:trains_managment)
               break if item == 0
               case item
               when 1 then create_train
@@ -182,27 +189,6 @@ class Start
               else
                 @interface.not_item_menu
               end
-            end
-          end
-
-          def create_train
-            number = @interface.create_train_menu
-            type = @interface.option_type_train
-            case type
-            when 1
-              if !check_train(number, "passenger")
-                puts "Passenger train #{number} has been created" if @trains <<  PassengerTrain.new(number)
-              else
-                @interface.train_already_title
-              end
-            when 2
-              if !check_train(number, "cargo")
-                puts "Cargo train #{number} has been created" if @trains << CargoTrain.new(number)
-              else
-                @interface.train_already_title
-              end
-            else
-              @interface.not_enter_anything
             end
           end
 
@@ -266,7 +252,7 @@ class Start
 
           def wagons_managment
             loop do
-              item = @interface.wagons_managment_menu
+              item = @interface.(:wagons_managment)
               break if item == 0
               case item
               when 1 then create_wagon

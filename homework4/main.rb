@@ -10,5 +10,4 @@
    require_relative 'start'
    require_relative 'interface'
 
-  start = Start.new
-  start.main
+  Start.new.run

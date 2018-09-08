@@ -1,21 +1,30 @@
 class Interface
 
+  attr_reader :stations_list, :trains_list, :routes_list, :wagons_list
+
+  def initialize
+    @stations_list = []
+    @trains_list = []
+    @routes_list = []
+    @wagons_list = []
+  end
+
   MENU = {
-    :menu
+    :list
      1=> "Stations",
      2=> "2.Routes",
      3=> "3.Trains",
      4=> "4.Wagons",
      0=> "0.Exit"
    },
-    :stations => {
+    :station => {
      1 => "Create station",
      2 => "Station List",
      3 => "Delete station",
      4 => "Train list on station",
      0 => "Exit"
    },
-   :routes => {
+    :routes => {
      1 => "Create Route",
      2 => "Rutes list",
      3 => "Add station to the route",
@@ -27,27 +36,18 @@ class Interface
       2 => "Train list",
       3 => "Add route to the train",
       4 => "Move back by route",
-      5 => "Exit",\
+      5 => "Exit",
 
-      :wagons => {
+     :wagones => {
       1 => "Create wagon",
       2 => "Wagons list",
       3 => "Add wagon to train",
       4 => "Exit"
      }
    }
-        
-    def menu(type)
-       MENU[type].each {|key, value| puts "#{key}: #{value}"}
-     end
 
-   def stations_managment_menu
-     puts "1.Create station"
-     puts "2.Station List"
-     puts "3.Delete station"
-     puts "4.Train list on station"
-     puts "0.Exit"
-     gets.to_i
+   def menu(type)
+      MENU[type].each {|key, value| puts "#{key}: #{value}"}
    end
 
    def create_station_menu
@@ -228,13 +228,13 @@ class Interface
 
    def create_train_type(number, type)
       if type == "cargo"
-        @trains_list << CargoTrain.new(number)
-      elsif type == "pass"
-        @trains_list << PassTrain.new(number)
+        @trains << CargoTrain.new(number)
+      elsif type == "passenger"
+        @trains << PassengerTrain.new(number)
       else
         puts "Error, you must enter 'cargo' or 'pass'!"
       end
-    end
+   end
 
    def cargo_wagon_already
      puts "Cargo wagon with this number already exist"
