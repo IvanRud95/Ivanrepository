@@ -1,13 +1,45 @@
 class Interface
 
-   def main_menu
-     puts "1.Stations"
-     puts "2.Routes"
-     puts "3.Trains"
-     puts "4.Wagons"
-     puts "0.Exit"
-     gets.to_i
-   end
+  MENU = {
+    :menu
+     1=> "Stations",
+     2=> "2.Routes",
+     3=> "3.Trains",
+     4=> "4.Wagons",
+     0=> "0.Exit"
+   },
+    :stations => {
+     1 => "Create station",
+     2 => "Station List",
+     3 => "Delete station",
+     4 => "Train list on station",
+     0 => "Exit"
+   },
+   :routes => {
+     1 => "Create Route",
+     2 => "Rutes list",
+     3 => "Add station to the route",
+     4 => "Remove station from the route",
+     5 => "Exit"
+   },
+     :trains => {
+      1 => "Create train",
+      2 => "Train list",
+      3 => "Add route to the train",
+      4 => "Move back by route",
+      5 => "Exit",\
+
+      :wagons => {
+      1 => "Create wagon",
+      2 => "Wagons list",
+      3 => "Add wagon to train",
+      4 => "Exit"
+     }
+   }
+        
+    def menu(type)
+       MENU[type].each {|key, value| puts "#{key}: #{value}"}
+     end
 
    def stations_managment_menu
      puts "1.Create station"
@@ -73,14 +105,6 @@ class Interface
      puts "You should created at least 2 stations"
    end
 
-   def routes_managment_menu
-     puts "1.Create route"
-     puts "2.Routes list"
-     puts "3.Add station at the route"
-     puts "4.Remove station at the route"
-     puts "0.Exit"
-     gets.to_i
-   end
 
    def request_start_station_title
      puts "Enter first station"
@@ -128,15 +152,6 @@ class Interface
      gets.chomp
    end
 
-   def trains_managment_menu
-     puts "1.Create train"
-     puts "2.Train list"
-     puts "3.Add route to the train"
-     puts "4.Replace train"
-     puts "0.Exit"
-     gets.to_i
-   end
-
    def create_train_menu
      puts "Enter train number"
      gets.to_i
@@ -176,15 +191,6 @@ class Interface
      puts "2.Train goes back"
    end
 
-   def wagons_managment_menu
-     puts "1.Create wagon"
-     puts "2.Wagons list"
-     puts "3.Add wagon to train"
-     puts "4.Remove wagon"
-     puts "0.Exit"
-     gets.to_i
-   end
-
    def create_wagon_menu
      puts "Enter wagon name"
      gets.to_i
@@ -219,6 +225,16 @@ class Interface
      puts "Enter wagon number to remove"
      gets.to_i
    end
+
+   def create_train_type(number, type)
+      if type == "cargo"
+        @trains_list << CargoTrain.new(number)
+      elsif type == "pass"
+        @trains_list << PassTrain.new(number)
+      else
+        puts "Error, you must enter 'cargo' or 'pass'!"
+      end
+    end
 
    def cargo_wagon_already
      puts "Cargo wagon with this number already exist"
