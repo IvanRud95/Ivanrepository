@@ -286,15 +286,15 @@ class Start
       @interface.not_number_train
     else
       current_station = train_needed.current_station.name
-      puts "Station for train number #{number_train} #{current_station}"
+      @interface.station_for_train
       @interface.move_train
       move_train = gets.to_i
       if move_train == 1
         train_needed.move_forward
-        puts "Train has been mooved forward #{current_station}"
+        @interface.station_forward
       elsif move_train == 2
         train_needed.move_backward
-        puts "Train has been mooved back #{current_station}"
+        @interface_station_back
       else
         @interface.not_enter_anything
       end

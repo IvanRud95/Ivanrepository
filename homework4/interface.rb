@@ -306,5 +306,17 @@ class Interface
     puts "Theris no wagon with this number #{train.number} "
   end
 
+  def station_for_train
+    puts "Station for train number #{number_train} #{current_station}"
+  end
+
+  def station_forward
+    puts "Train has been mooved forward #{current_station}"
+  end
+
+  def station_back
+    puts "Train has been mooved back #{current_station}"
+  end
+
 end
 
