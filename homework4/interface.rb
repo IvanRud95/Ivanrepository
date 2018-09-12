@@ -297,5 +297,14 @@ class Interface
   def wagon_added
     puts "Wagon number #{number_vagon} has been added #{train_needed.number}"
   end
+
+  def wagon_removed
+    puts puts "Wagon #{number_wagon} removed"
+  end
+
+  def no_wagon_number
+    puts "Theris no wagon with this number #{train.number} "
+  end
+
 end
 

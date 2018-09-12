@@ -398,9 +398,9 @@ class Start
   def search_wagon_for_remove(train, number_wagon)
     wagon_needed = train.wagons.detect {|wagon| wagon.number == number_wagon}
     if wagon_needed
-      puts "Wagon #{number_wagon} removed " if train.del_vagon(wagon_needed)
+      @interface.wagon_removed if train.del_vagon(wagon_needed)
     else
-      puts "Theris no wagon with this number #{train.number} "
+      @interface.no_wagon_number
     end
   end
 end
