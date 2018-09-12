@@ -170,7 +170,7 @@ class Interface
     gets.chomp
   end
 
-  def create_train_menu
+  def create_train
     puts 'Enter train number'
     gets.to_i
   end
