@@ -256,7 +256,7 @@ class Start
   end
 
   def train_number_type(train)
-    puts "#{train.number} - #{train.type}"
+    @interface.train_number_type
   end
 
   def set_route_to_train

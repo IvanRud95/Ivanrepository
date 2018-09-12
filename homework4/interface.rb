@@ -318,5 +318,9 @@ class Interface
     puts "Train has been mooved back #{current_station}"
   end
 
+  def train_number_type
+    puts "#{train.number} - #{train.type}"
+  end
+
 end
 
