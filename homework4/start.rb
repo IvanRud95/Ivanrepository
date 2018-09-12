@@ -283,9 +283,9 @@ class Start
       @interface.not_number_train
     else
       current_station = train_needed.current_station.name
-      @interface.station_for_train
+      @interface.station_for_train(number_train)
       @interface.move_train
-      move_train = gets.to_i
+      move_train = @interface.go
       if move_train == 1
         train_needed.move_forward
         @interface.station_forward
