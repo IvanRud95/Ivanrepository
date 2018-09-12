@@ -215,33 +215,26 @@ class Start
 
 
   def create_train
-    number = @interface.create_train
+    number = @interface.create_train_menu
     type = @interface.trains_by_type
     case type
-    when 1 then
-      create_train_pass(number)
-    when 2 then
-      create_train_cargo(number)
+    when 1
+      if !check_train(number, "pass")
+        puts "Pass #{number} " if @trains << PassengerTrain.new(number)
+      else
+        @interface.train_already_title
+      end
+    when 2
+      if !check_train(number, "cargo")
+        puts "Cargo #{number} " if @trains << CargoTrain.new(number)
+      else
+        @interface.train_already_title
+      end
     else
       @interface.not_enter_anything
     end
   end
 
-  def create_train_pass(number)
-    if !check_train(number, 'Passenger')
-      @interface.train_pass_created(number) if @trains << PassengerTrain.new(number)
-    else
-      @interface.train_already_title
-    end
-  end
-
-  def create_train_cargo(number)
-    if !check_train(number, 'Cargo')
-      @interface.train_cargo_created(number) if @trains << CargoTrain.new(number)
-    else
-      @interface.train_already_title
-    end
-  end
 
   def check_train(number, type)
     @trains.any? {|train| train.number == number && train.type == type}
