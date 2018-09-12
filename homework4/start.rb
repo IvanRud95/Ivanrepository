@@ -105,7 +105,7 @@ class Start
     else
       @interface.trains_at_station + "#{station_needed.name}:"
       station_needed.trains.each {|train| print train.number, ' '}
-      puts
+      @interface.go
     end
   end
 
@@ -255,7 +255,7 @@ class Start
     end
   end
 
-  def train_number_type(train)
+  def train_number_type
     @interface.train_number_type
   end
 

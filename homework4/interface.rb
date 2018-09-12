@@ -170,15 +170,22 @@ class Interface
     gets.chomp
   end
 
-  def create_train
+  def create_train_menu
     puts 'Enter train number'
     gets.to_i
+  end
+
+  def create_train
+    puts "train has been created "
   end
 
   def enter_type
     gets.chomp
   end
 
+  def go
+    puts
+  end
 
   def trains_by_type
     puts 'Enter train type: 1 - passenger, 2 - cargo'
@@ -302,11 +309,11 @@ class Interface
     puts puts "Wagon #{number_wagon} removed"
   end
 
-  def no_wagon_number
-    puts "Theris no wagon with this number #{train.number} "
+  def no_wagon_number(number_train)
+    puts "Theris no wagon with this number #{number_train} "
   end
 
-  def station_for_train
+  def station_for_train(number_train)
     puts "Station for train number #{number_train} #{current_station}"
   end
 
@@ -318,8 +325,8 @@ class Interface
     puts "Train has been mooved back #{current_station}"
   end
 
-  def train_number_type
-    puts "#{train.number} - #{train.type}"
+  def train_number_typen(number_train)
+    puts "#{number_train} - #{train.type}"
   end
 
 end

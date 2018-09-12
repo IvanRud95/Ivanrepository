@@ -67,7 +67,7 @@ class Train
   end
 
   def train_number_type
-    @interface.train_number_type_interface(@number, @type)
+    @interface.train_number_type(@number, @type)
   end
 
 end
