@@ -109,18 +109,31 @@ class Start
     end
   end
 
-
-  def routes_managment_menu
+  def routes_managment
     if @stations.length == 0
       @interface.check_stations_length
-    else
-      loop do
-        item = @interface.menu_routes
-        break if item == 0
-        routes_management_menu
+    end
+  end
+
+  def routes_managment_menu
+    loop do
+      item = @interface.routes_managment_menu
+      break if item == 0
+      case item
+      when 1 then
+        create_route
+      when 2 then
+        look_routes
+      when 3 then
+        add_station_in_route
+      when 4 then
+        del_station_from_route
+      else
+        @interface.not_item_menu
       end
     end
   end
+
 
   def create_route
     start_station_title = @interface.request_start_station_title
@@ -140,10 +153,10 @@ class Start
     else
       number_route = 1
       @routes.each do |route|
-        print "Route number #{number_route}: "
-        route.show_station
+        @interface.route_number(number_route)
+        route.show_stations
         number_route += 1
-        puts
+        @interface.puts_name
       end
     end
   end
@@ -334,7 +347,7 @@ class Start
     if @wagons.empty?
       @interface.not_wagons
     else
-      @wagons.each {|wagon| puts "Wagon: #{wagon.number} - #{wagon.type}"}
+      @wagons.each {|wagon| @interface.show_wagon_type(wagon.number, wagon.type)}
     end
   end
 
@@ -357,13 +370,13 @@ class Start
     elsif !wagon_needed
       @interface.not_number_wagon
     else
-      puts "Wagon number #{number_vagon} has been added #{train_needed.number}" if train_needed.add_wagon(wagon_needed)
+      @interface.wagon_added if train_needed.add_wagon(wagon_needed)
     end
   end
 
   def add_wagon_to_train(train_needed, wagon_needed, number_wagon)
     if train_needed.check_type_wagon?(wagon_needed)
-      puts "Wagon number #{number_wagon} has been addedd #{train_needed.number}" if train_needed.add_wagon(wagon_needed)
+      @interface.wagon_added if train_needed.add_wagon(wagon_needed)
     else
       @interface.can_not_add_wagon
     end
@@ -382,7 +395,7 @@ class Start
     end
   end
 
-  def search_wagon_for_remove_from_train(train, number_wagon)
+  def search_wagon_for_remove(train, number_wagon)
     wagon_needed = train.wagons.detect {|wagon| wagon.number == number_wagon}
     if wagon_needed
       puts "Wagon #{number_wagon} removed " if train.del_vagon(wagon_needed)

@@ -45,21 +45,6 @@ class Interface
     gets.to_i
   end
 
-  def menu_routes
-    item = station_managment_menu
-    case item
-    when 1 then
-      create_route
-    when 2 then
-      look_routes
-    when 3 then
-      add_station_in_route
-    when 4 then
-      del_station_from_route
-    else
-      not_item_menu
-    end
-  end
 
   def get_answer
     gets.chomp
@@ -296,5 +281,21 @@ class Interface
     puts 'Wagon with this number already exist'
   end
 
+  def show_wagon_type(wagon_number, wagon_type)
+    puts "Wagon #{wagon_number} - #{wagon_type}"
+  end
+
+  def route_number
+    puts 'Enter route number'
+    gets.to_i
+  end
+
+  def puts_name
+    puts
+  end
+
+  def wagon_added
+    puts "Wagon number #{number_vagon} has been added #{train_needed.number}"
+  end
 end
 
