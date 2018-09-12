@@ -247,16 +247,13 @@ class Start
     @trains.any? {|train| train.number == number && train.type == type}
   end
 
+
   def look_trains
     if @trains.empty?
-      @interface.not_trains
+      @interface.not_trains_station
     else
-      @trains.each {|train| train_number_type(train)}
+      @trains.each {|train| @interface.train_number_type(train.number, train.type)}
     end
-  end
-
-  def train_number_type
-    @interface.train_number_type
   end
 
   def set_route_to_train
