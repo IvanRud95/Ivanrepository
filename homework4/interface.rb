@@ -1,5 +1,9 @@
 class Interface
+  attr_reader :routes_list
 
+  def initialize
+    @routes_list = []
+  end
 
   def main_menu
     puts '1.Stations'
@@ -328,6 +332,23 @@ class Interface
   def train_number_type(number_train, train_type)
     puts "#{number_train} - #{train_type}"
   end
+
+  def train_pass
+    puts "pass #{number} "
+  end
+
+  def train_cargo
+    puts "cargo #{number} "
+  end
+
+  def route_number_display
+    print "Route number #{number_route}: "
+  end
+
+  def input_route_numbre
+    print "Enter route number: "
+  end
+
 
 end
 

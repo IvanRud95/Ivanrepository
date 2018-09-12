@@ -11,7 +11,7 @@ class Route
     @stations.insert(-2, station)
   end
 
-  def display_station(station)
+  def display_station
     @stations.each { |station| puts station.name}
   end
 
@@ -28,4 +28,5 @@ class Route
   def last_station
     @stations.last
   end
+
 end

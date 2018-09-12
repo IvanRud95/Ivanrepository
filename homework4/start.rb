@@ -17,13 +17,13 @@ class Start
       break if item.zero?
 
       case item
-      when 1 then
+      when 1
         stations_managment_menu
-      when 2 then
+      when 2
         routes_managment_menu
-      when 3 then
+      when 3
         trains_managment_menu
-      when 4 then
+      when 4
         wagons_managment_menu
       else
         @interface.not_item_menu
@@ -39,13 +39,13 @@ class Start
       break if item.zero?
 
       case item
-      when 1 then
+      when 1
         create_station
-      when 2 then
+      when 2
         look_stations
-      when 3 then
+      when 3
         remove_station
-      when 4 then
+      when 4
         look_trains_at_station
       else
         @interface.not_item_menu
@@ -72,13 +72,6 @@ class Start
     @stations.any? {|station| station.name == name}
   end
 
-  def look_stations
-    if @stations.empty?
-      @interface.none_stations
-    else
-      @stations.each {|station| p station.name}
-    end
-  end
 
   def remove_station
     name = @interface.remove_station_menu
@@ -120,13 +113,13 @@ class Start
       item = @interface.routes_managment_menu
       break if item == 0
       case item
-      when 1 then
+      when 1
         create_route
-      when 2 then
-        look_routes
-      when 3 then
+      when 2
+        route_by_number
+      when 3
         add_station_in_route
-      when 4 then
+      when 4
         del_station_from_route
       else
         @interface.not_item_menu
@@ -147,18 +140,9 @@ class Start
     end
   end
 
-  def look_routes
-    if @routes.empty?
-      @interface.none_route
-    else
-      number_route = 1
-      @routes.each do |route|
-        @interface.route_number(number_route)
-        route.show_stations
-        number_route += 1
-        @interface.puts_name
-      end
-    end
+
+  def route_by_number
+    @routes_list.each {|route| return route if route.number == number}
   end
 
   def add_station_in_route number_route = @interface.number_route - 1
@@ -197,15 +181,15 @@ class Start
       break if item == 0
 
       case item
-      when 1 then
+      when 1
         create_train
-      when 2 then
+      when 2
         look_trains
-      when 3 then
+      when 3
         set_route_to_train
-      when 4 then
+      when 4
         move_train
-      when 5 then
+      when 5
         managment_wagons
       else
         @interface.not_item_menu
@@ -220,13 +204,13 @@ class Start
     case type
     when 1
       if !check_train(number, "pass")
-        puts "Pass #{number} " if @trains << PassengerTrain.new(number)
+        @interface.train_pass if @trains << PassengerTrain.new(number)
       else
         @interface.train_already_title
       end
     when 2
       if !check_train(number, "cargo")
-        puts "Cargo #{number} " if @trains << CargoTrain.new(number)
+        @interface.train_cargo if @trains << CargoTrain.new(number)
       else
         @interface.train_already_title
       end
@@ -390,7 +374,7 @@ class Start
     if wagon_needed
       @interface.wagon_removed if train.del_vagon(wagon_needed)
     else
-      @interface.no_wagon_number
+      @interface.no_wagon_number(number_wagon)
     end
   end
 end
