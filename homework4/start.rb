@@ -272,6 +272,7 @@ class Start
   end
 
 
+
   def wagons_managment_menu
     loop do
       item = @interface.wagones_managment_menu
@@ -292,22 +293,25 @@ class Start
     end
   end
 
-  def create_wagon
-    @interface.enter_wagon_type
-    wagon_type = @interface.enter_type
-    @interface.enter_wagon_number
-    wagon_number = @interface.enter_type
-    if wagon_type == '1'
-      wagon = PassengerWagon.new(wagon_number)
-      @wagons << wagon
-      @interface.wagon_created
-    elsif wagon_type == '2'
-      wagon = CargoWagon.new(wagon_number)
-      @wagons << wagon
-      @interface.wagon_created
+  def create_wagons
+    number = @interface.create_wagons
+    if check_wagon_number(number)
+      @interface.wagon_already
     else
-      @interface.error
+      type = @interface.type_wagon
+      case type
+      when 1 then create_wagons_cargo(number)
+      when 2 then create_wagons_pass(number)
+      end
     end
+  end
+
+  def create_wagons_cargo(number)
+    @interface.cargo_wagon_created(number) if @wagons << CargoWagon.new(number)
+  end
+
+  def create_wagons_pass(number)
+    @interface.pass_wagon_created(number) if @wagons << PassengerWagon.new(number)
   end
 
   def check_wagon_number(number_wagon)

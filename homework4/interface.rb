@@ -137,6 +137,14 @@ class Interface
     puts 'The wagon has been created'
   end
 
+  def pass_wagon_created
+    puts 'The wagon has been created'
+  end
+
+  def cargo_wagon_created
+    puts 'The wagon has been created'
+  end
+
   def route_created
     puts 'The route has been created'
   end
