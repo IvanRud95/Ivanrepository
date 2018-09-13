@@ -4,7 +4,6 @@ class Route
 
   def initialize(first_station, last_station)
     @stations = [first_station, last_station]
-    @route = []
   end
 
   def add_station(station)
@@ -12,7 +11,7 @@ class Route
   end
 
   def display_station
-    @stations.each { |station| puts station.name}
+    stations.each {|station| print station.name, " "}
   end
 
   def del_station(station)

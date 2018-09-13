@@ -18,7 +18,6 @@ class Interface
     puts '1.Create station'
     puts '2.Station List'
     puts '3.Delete station'
-    puts '4.Train list on station'
     puts '0.Exit'
     gets.to_i
   end
@@ -333,11 +332,15 @@ class Interface
     puts "#{number_train} - #{train_type}"
   end
 
-  def train_pass
+  def train_data
+    print train.number, " "
+  end
+
+  def train_pass(number)
     puts "pass #{number} "
   end
 
-  def train_cargo
+  def train_cargo(number)
     puts "cargo #{number} "
   end
 
