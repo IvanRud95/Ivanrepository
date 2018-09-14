@@ -1,9 +1,7 @@
 class Interface
   attr_reader :routes_list
 
-  def initialize
-    @routes_list = []
-  end
+
 
   def main_menu
     puts '1.Stations'
@@ -211,10 +209,6 @@ class Interface
     puts "Cargo train #{number} has been created"
   end
 
-  def check_train(number, type)
-    @trains.any? {|train| train.number == number && train.type == type}
-  end
-
   def not_trains
     puts 'There is no trains'
   end
@@ -244,6 +238,14 @@ class Interface
     puts '2.Train goes back'
   end
 
+  def move_train_forward
+    puts 'Train goes forward'
+  end
+
+  def move_train_back
+    puts 'Train goes back'
+  end
+
   def create_wagon_menu
     puts 'Enter wagon name'
     gets.to_i
@@ -257,7 +259,7 @@ class Interface
   end
 
   def not_wagons
-    puts 'Theris no wagons yet'
+    puts 'There is no wagons yet'
   end
 
   def number_wagon
@@ -306,6 +308,10 @@ class Interface
   def route_number
     puts 'Enter route number'
     gets.to_i
+  end
+
+  def route_number_added
+    print "Route #{number_route}: "
   end
 
   def puts_name
@@ -360,6 +366,9 @@ class Interface
     print "Enter route number: "
   end
 
-
+  def create_wagons
+    puts 'Enter wagon name'
+    gets.to_i
+  end
 end
 

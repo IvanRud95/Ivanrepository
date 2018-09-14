@@ -64,7 +64,7 @@ class Start
       end
     end
   end
-  ё
+
   def look_stations
     if @stations.length == 0
       @interface.none_stationas
@@ -140,10 +140,10 @@ class Start
     else
       number_route = 1
       @routes.each do |route|
-        print "Route #{number_route}: "
+        @interface.route_number_added(number_route)
         route.display_station
         number_route += 1
-        puts
+        @interface.puts_name
       end
     end
   end
@@ -280,7 +280,7 @@ class Start
 
       case item
       when 1 then
-        create_wagon
+        create_wagons
       when 2 then
         look_wagons
       when 3 then
@@ -307,11 +307,11 @@ class Start
   end
 
   def create_wagons_cargo(number)
-    @interface.cargo_wagon_created(number) if @wagons << CargoWagon.new(number)
+    @interface.cargo_wagon_created if @wagons << CargoWagon.new(number)
   end
 
   def create_wagons_pass(number)
-    @interface.pass_wagon_created(number) if @wagons << PassengerWagon.new(number)
+    @interface.pass_wagon_created if @wagons << PassengerWagon.new(number)
   end
 
   def check_wagon_number(number_wagon)
@@ -349,11 +349,12 @@ class Start
     end
   end
 
-  def add_wagon_to_train(train_needed, wagon_needed, number_wagon)
-    if train_needed.check_type_wagon?(wagon_needed)
-      @interface.wagon_added if train_needed.add_wagon(wagon_needed)
-    else
-      @interface.can_not_add_wagon
+  def add_wagon_to_train(train_needed, wagon_needed)
+    if @interface.wagon_added
+      if train_needed.add_wagon(wagon_needed)
+      else
+        @interface.can_not_add_wagon
+      end
     end
   end
 
@@ -362,7 +363,7 @@ class Start
     number_wagon = @interface.number_wagon_remove
     train_needed = search_train_needed(number_train)
     if train_needed
-      search_wagon_for_remove_from_train(train_needed, number_wagon)
+      search_wagon_for_remove(train_needed, number_wagon)
     elsif !train_needed
       @interface.not_number_train
     else
@@ -373,7 +374,7 @@ class Start
   def search_wagon_for_remove(train, number_wagon)
     wagon_needed = train.wagons.detect {|wagon| wagon.number == number_wagon}
     if wagon_needed
-      @interface.wagon_removed if train.del_vagon(wagon_needed)
+      @interface.wagon_removed if train.remove_wagon(wagon_needed)
     else
       @interface.no_wagon_number(number_wagon)
     end
