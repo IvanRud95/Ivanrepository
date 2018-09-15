@@ -149,7 +149,8 @@ class Start
   end
 
   def add_station_in_route
-    number_route = @interface.number_route - 1
+    look_routes
+    number_route = @interface.number_set("Route") - 1
     if @routes[number_route].nil?
       @interface.not_route
     else
@@ -164,7 +165,7 @@ class Start
   end
 
   def del_station_from_route
-    number_route = @interface.number_route - 1
+    number_route = @interface.number_set("Route") - 1
     if @routes[number_route].nil?
       interface.not_route
     else
@@ -202,7 +203,7 @@ class Start
 
 
   def create_train
-    number = @interface.create_train_menu
+    number = @interface.number_set("Train")
     type = @interface.trains_by_type
     case type
     when 1 then create_train_pass(number)
@@ -255,7 +256,7 @@ class Start
     elsif route_use.nil?
       @interface.not_number_route
     elsif number_train != 0 && number_route != 0
-      @interface.set_route if train_needed.route_destination(route_use)
+      @interface.set_route if train_needed.route_use(route_use)
     else
       @interface.not_enter_anything
     end
@@ -268,6 +269,19 @@ class Start
       @interface.not_number_train
     else
       move_train!(number_train, train_needed)
+    end
+  end
+
+  def move_train!(train_needed)
+    current_station = train_needed.current_station.name
+    @interface.current_station(train)
+    @interface.move_train
+    move_train = gets.to_i
+    case move_train
+    when 1 then move_train_forward(train_needed)
+    when 2 then move_train_back(train_needed)
+    else
+      @interface.not_enter_anything
     end
   end
 

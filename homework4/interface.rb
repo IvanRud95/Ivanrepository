@@ -110,6 +110,12 @@ class Interface
     puts 'You should created at least 2 stations'
   end
 
+
+  def number_set(object_type)
+    puts "Enter number #{object_type}"
+    gets.to_i
+  end
+
   def request_start_station_title
     puts 'Enter first station'
     gets.chomp
@@ -236,6 +242,7 @@ class Interface
   def move_train
     puts '1.Train goes forward'
     puts '2.Train goes back'
+    gets.to_i
   end
 
   def move_train_forward
@@ -310,7 +317,7 @@ class Interface
     gets.to_i
   end
 
-  def route_number_added
+  def route_number_added(number_route)
     print "Route #{number_route}: "
   end
 
@@ -356,6 +363,10 @@ class Interface
 
   def train_cargo(number)
     puts "cargo #{number} "
+  end
+
+  def current_station(train)
+    puts "Current station #{train.number} #{train.current_station.name} "
   end
 
   def route_number_display

@@ -16,7 +16,7 @@ class Station
   end
 
   def all_trains
-    @trains.each {|train| puts "#{train}"}
+    trains.each { |train| puts "#{train.number} #{train.type}" }
   end
 
   def trains_by_type(type)
