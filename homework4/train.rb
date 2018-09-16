@@ -37,9 +37,7 @@ class Train
     if next_station
       current_station.send_train(self)
       next_station.add_train(self)
-      @station_index += 1
-    else
-      @interface.last_station
+      @index_station += 1
     end
   end
 
@@ -53,9 +51,7 @@ class Train
     if previous_station
       current_station.send_train(self)
       previous_station.add_train(self)
-      @station_index -= 1
-    else
-      @interface.first_station
+      @index_station -= 1
     end
   end
 

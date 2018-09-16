@@ -33,7 +33,7 @@ class Interface
     puts '1.Create train'
     puts '2.Train list'
     puts '3.Add route to the train'
-    puts '4.Move back by route'
+    puts '4.Move train'
     puts '0.Exit'
     gets.to_i
   end
@@ -246,11 +246,11 @@ class Interface
   end
 
   def move_train_forward
-    puts 'Train goes forward'
+    puts "Train has been moved forward #{current_station}"
   end
 
   def move_train_back
-    puts 'Train goes back'
+    puts "Train has been moved back#{current_station}"
   end
 
   def create_wagon_menu

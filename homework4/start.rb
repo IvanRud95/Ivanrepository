@@ -148,18 +148,18 @@ class Start
     end
   end
 
+
   def add_station_in_route
-    look_routes
-    number_route = @interface.number_set("Route") - 1
+    number_route = @interface.number_route - 1
     if @routes[number_route].nil?
       @interface.not_route
     else
-      name = @interface.route_created
-      name_add_station = @stations.detect { |station| station.name == name }
+      name = @interface.enter_name_station
+      name_add_station = @stations.detect {|station| station.name == name}
       if name_add_station
         @interface.station_added if @routes[number_route].add_station(name_add_station)
       else
-        @interface.not_station_for_remove
+        @interface.not_station_found
       end
     end
   end
@@ -268,20 +268,19 @@ class Start
     if !train_needed && train_needed.nil?
       @interface.not_number_train
     else
-      move_train!(number_train, train_needed)
-    end
-  end
-
-  def move_train!(train_needed)
-    current_station = train_needed.current_station.name
-    @interface.current_station(train)
-    @interface.move_train
-    move_train = gets.to_i
-    case move_train
-    when 1 then move_train_forward(train_needed)
-    when 2 then move_train_back(train_needed)
-    else
-      @interface.not_enter_anything
+      current_station = train_needed.current_station.name
+      puts "Сurrent staion number #{number_train} #{current_station}"
+      @interface.move_train
+      move_train = gets.to_i
+      if move_train == 1
+        train_needed.move_forward
+        @interface.move_train_forward
+      elsif move_train == 2
+        train_needed.move_back
+        @interface.move_train_back
+      else
+        @interface.not_enter_anything
+      end
     end
   end
 
