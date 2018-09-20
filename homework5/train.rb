@@ -1,12 +1,20 @@
-class Train
+require_relative 'manufacturer'
+require_relative 'instance_counter'
 
+class Train
+  include Manufacturer
+  include InstanceCounter
   attr_reader :type, :wagons, :route, :number, :speed, :current_station_index
+
+  @@all_trains = {}
 
   def initialize(number, type)
     @number = number
     @type = type
     @wagons = []
     @speed = 0
+    @@all_trains[number] = self
+    register_instances
   end
 
   def add_speed
