@@ -5,14 +5,14 @@ module InstanceCounter
     base.send :include, InstanceMethods
   end
 
-module ClassMethods
-  def instances
-      @counter ||= 0
-    end
-    def instances=(value)
-      @counter = value
-    end
-  end
+  module ClassMethods
+   def instances
+       @counter ||= 0
+     end
+     def instances=(value)
+       @counter = value
+     end
+   end
 
   module InstanceMethods
     protected
