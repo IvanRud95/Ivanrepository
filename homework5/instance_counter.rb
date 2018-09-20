@@ -5,15 +5,19 @@ module InstanceCounter
     base.send :include, InstanceMethods
   end
 
-  module ClassMethods
-    attr_accessor :instances
+module ClassMethods
+  def instances
+      @counter ||= 0
+    end
+    def instances=(value)
+      @counter = value
+    end
   end
 
   module InstanceMethods
     protected
 
     def register_instances
-      self.class.instances ||= 0
       self.class.instances += 1
     end
   end
