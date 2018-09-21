@@ -2,7 +2,7 @@ require_relative 'instance_counter'
 
 class Station
   include InstanceCounter
-  attr_reader :trains, :station_name
+  attr_reader :trains, :station
 
    @@stations = []
 
