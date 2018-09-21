@@ -8,6 +8,8 @@ require_relative 'cargo_wagon'
 require_relative 'passenger_wagon'
 require_relative 'start'
 require_relative 'interface'
+require_relative 'instance_counter'
+require_relative 'manufacturer'
 
 start = Start.new
 start.main_menu
