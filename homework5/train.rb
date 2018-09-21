@@ -4,16 +4,31 @@ require_relative 'instance_counter'
 class Train
   include Manufacturer
   include InstanceCounter
-  attr_reader :type, :wagons, :route, :number, :speed, :current_station_index
+  attr_reader :type, :wagons, :route, :number, :speed, :current_station_index , :stations
 
-  @@trains = {}
+  class << self
+    attr_reader :all_trains
+
+  def find(train_number)
+      all_trains[train_number]
+  end
+
+  protected
+    attr_writer :all_trains
+
+    def add_train(train)
+      self.all_trains[train.number] = train
+    end
+  end
+
+  @@all_trains= {}
 
   def initialize(number, type)
     @number = number
     @type = type
     @wagons = []
     @speed = 0
-    @@trains[number] = self
+    @@all_trains[number] = self
     register_instances
   end
 
