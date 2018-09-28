@@ -1,5 +1,5 @@
 require_relative 'instance_counter'
-require_relative 'validation_error'
+require_relative 'validation'
 
 class Route
   include InstanceCounter

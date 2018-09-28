@@ -8,7 +8,7 @@ class Train
   include Validation
   attr_reader :type, :wagons, :route, :number, :speed, :current_station_index
 
-  NUMBER_PATTERN = /^[a-z\d]{3}-?[a-z\d]{2}$/i
+  NUMBER_FORMAT = /^[a-z\d]{3}-?[a-z\d]{2}$/i
 
   def find(train_number)
     all_trains[train_number]
@@ -96,7 +96,7 @@ class Train
   def validate!
     raise "You didnt put anything" if number.nil?
     raise "You didnt choose type of the train" if type.nil?
-    raise "Incorrect format number " if number !~ FORMAT_NUMBER
+    raise "Incorrect format number " if number !~ NUMBER_FORMAT
   end
 
 end
