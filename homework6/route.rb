@@ -1,4 +1,5 @@
 require_relative 'instance_counter'
+require_relative 'validation_error'
 
 class Route
 
@@ -8,7 +9,10 @@ class Route
   def initialize(first_station, last_station)
     @stations = [first_station, last_station]
     register_instances
+    validate!
   end
+
+  public
 
   def add_station(station)
     @stations.insert(-2, station)
@@ -32,4 +36,11 @@ class Route
     @stations.last
   end
 
+  private
+
+  def validate!
+    raise "This start station didnt exist" unless first_station.kind_of? Station
+    raise "This end station didnt exist" unless last_station.kind_of? Station
+    raise "First and last stations should be different" if first_station == last_station
+  end
 end

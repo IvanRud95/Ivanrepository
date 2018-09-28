@@ -1,2 +1,0 @@
-class ValidationError < RuntimeError
-end

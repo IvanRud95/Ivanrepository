@@ -1,4 +1,5 @@
 require_relative 'instance_counter'
+require_relative 'validation'
 
 class Station
   include InstanceCounter
@@ -15,7 +16,17 @@ class Station
     @trains = []
     @@all_stations.push(self)
     register_instances
+    validate!
   end
+
+
+  private
+
+  def validate!
+    raise "You must enter station name!" if name.nil? || name.empty?
+  end
+
+  public
 
   def add_train(train)
     @trains << train
@@ -26,7 +37,7 @@ class Station
   end
 
   def all_trains
-    trains.each { |train| puts "#{train.number} #{train.type}" }
+    trains.each {|train| puts "#{train.number} #{train.type}"}
   end
 
   def trains_by_type(type)

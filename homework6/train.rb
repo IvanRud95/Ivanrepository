@@ -1,15 +1,19 @@
 require_relative 'manufacturer'
 require_relative 'instance_counter'
+require_relative 'validation'
 
 class Train
   include Manufacturer
   include InstanceCounter
+  include Validation
   attr_reader :type, :wagons, :route, :number, :speed, :current_station_index
 
+  NUMBER_PATTERN = /^[a-z\d]{3}-?[a-z\d]{2}$/i
 
   def find(train_number)
     all_trains[train_number]
   end
+
 
   @@all_trains = {}
 
@@ -20,7 +24,10 @@ class Train
     @speed = 0
     @@all_trains[number] = self
     register_instances
+    validate!
   end
+
+  public
 
   def add_speed
     @speed += 1
@@ -82,6 +89,14 @@ class Train
 
   def train_number_type
     @interface.train_number_type(@number, @type)
+  end
+
+  protected
+
+  def validate!
+    raise "You didnt put anything" if number.nil?
+    raise "You didnt choose type of the train" if type.nil?
+    raise "Incorrect format number " if number !~ FORMAT_NUMBER
   end
 
 end
