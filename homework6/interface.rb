@@ -202,9 +202,28 @@ class Interface
     puts
   end
 
+  def get_manufacturer
+    puts "Enter company name"
+    gets.chomp
+  end
+
+  def trains_number_type(number, type)
+    puts "#{number} - #{type}"
+  end
+
   def trains_by_type
     puts 'Enter train type: 1 - passenger, 2 - cargo'
-    gets.to_i
+    choise = gets.to_i
+    case choise
+    when 1
+      "Passanger"
+    when 2
+      "Cargo"
+    end
+  end
+
+  def train_created(number)
+    puts "Train #{number} has been created"
   end
 
   def train_pass_created(number)
@@ -317,6 +336,7 @@ class Interface
     gets.to_i
   end
 
+
   def route_number_added(number_route)
     print "Route #{number_route}: "
   end
@@ -349,8 +369,8 @@ class Interface
     puts "Train has been mooved back #{current_station}"
   end
 
-  def train_number_type(number_train, train_type)
-    puts "#{number_train} - #{train_type}"
+  def train_number_type(number, train)
+    puts "#{number} - #{train}"
   end
 
   def train_data
@@ -377,9 +397,15 @@ class Interface
     print "Enter route number: "
   end
 
+  def enter_number (object_type)
+    puts "Enter number #{object_type}"
+    gets.to_i
+  end
+
   def create_wagons
     puts 'Enter wagon name'
     gets.to_i
   end
+
 end
 

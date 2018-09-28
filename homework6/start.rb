@@ -59,17 +59,18 @@ class Start
     elsif stations_name_exist(name)
       @interface.stations_name_exist
     else
-      if @stations << Station.new(name)
-        @interface.station_created
-      end
+      @interface.station_created if @stations << Station.new(name)
     end
+  rescue RuntimeError => e
+    puts e.inspect
   end
+
 
   def look_stations
     if @stations.length == 0
       @interface.none_stationas
     else
-      @stations.each { |station| p station.name }
+      @stations.each {|station| p station.name}
     end
   end
 
@@ -131,6 +132,9 @@ class Start
     else
       @interface.check_all_stations
     end
+  rescue RuntimeError => e
+    puts e.inspect
+    retry
   end
 
 
@@ -203,42 +207,41 @@ class Start
 
 
   def create_train
-    number = @interface.number_set("Train")
+    number = @interface.enter_number("Train")
     type = @interface.trains_by_type
-    case type
-    when 1 then create_train_pass(number)
-    when 2 then create_train_cargo(number)
-    else
+    unless create_train_type(number, type)
       @interface.not_enter_anything
     end
+  rescue RuntimeError => e
+    puts e.inspect
   end
 
-  def create_train_pass(number)
-    if !check_train(number, "Pass")
-      @interface.train_pass_created(number) if @trains <<  PassengerTrain.new(number)
+  def create_train_type(number, type)
+    if !check_train(number, type)
+      case type
+      when "Pass"
+        train = CargoTrain.new(number)
+      when "Cargo"
+        train = PassengerTrain.new(number)
+      end
+      @interface.train_created(train)
+      @trains << train
     else
       @interface.train_already_title
     end
-  end
-
-  def create_train_cargo(number)
-    if !check_train(number, "Cargo")
-      @interface.train_cargo_created(number) if @trains << CargoTrain.new(number)
-    else
-      @interface.train_already_title
-    end
+  rescue RuntimeError => e
+    puts e.inspect
   end
 
   def check_train(number, type)
     @trains.any? {|train| train.number == number && train.type == type}
   end
 
-
   def look_trains
     if @trains.empty?
       @interface.not_trains_station
     else
-      @trains.each {|train| @interface.train_number_type(train.number, train.type)}
+      @trains.each {|train| @interface.trains_number_type(train.number, train.type) }
     end
   end
 
@@ -264,7 +267,7 @@ class Start
 
   def move_train
     number_train = @interface.create_train_menu
-    train_needed = @trains.detect { |train| train.number == number_train}
+    train_needed = @trains.detect {|train| train.number == number_train}
     if !train_needed && train_needed.nil?
       @interface.not_number_train
     else
@@ -283,7 +286,6 @@ class Start
       end
     end
   end
-
 
 
   def wagons_managment_menu
@@ -313,10 +315,15 @@ class Start
     else
       type = @interface.type_wagon
       case type
-      when 1 then create_wagons_cargo(number)
-      when 2 then create_wagons_pass(number)
+      when 1 then
+        create_wagons_cargo(number)
+      when 2 then
+        create_wagons_pass(number)
       end
     end
+  rescue RuntimeError => e
+    puts e.inspect
+    retry
   end
 
   def create_wagons_cargo(number)
