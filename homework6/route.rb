@@ -2,8 +2,8 @@ require_relative 'instance_counter'
 require_relative 'validation_error'
 
 class Route
-
   include InstanceCounter
+  include Validation
   attr_reader :stations
 
   def initialize(first_station, last_station)
