@@ -222,20 +222,31 @@ class Interface
     end
   end
 
-  def train_created(number)
-    puts "Train #{number} has been created"
+  def pass_train_ask
+    puts "Please enter nubmer one letter two numbers "
   end
 
-  def train_pass_created(number)
-    puts "Passenger train #{number} has been created"
+  def cargo_train_ask
+    puts "Please enter nubmer one letter two numbers "
   end
 
-  def train_cargo_created(number)
-    puts "Cargo train #{number} has been created"
+
+  def variant_choose
+    puts "Choose variants"
+  end
+
+  def train_exist
+    puts "train already exist"
   end
 
   def not_trains
     puts 'There is no trains'
+  end
+
+  def train_messange
+    puts "Please enter train tyoe"
+    puts "1. Passenger"
+    puts "2. Cargo"
   end
 
   def list_created_routes

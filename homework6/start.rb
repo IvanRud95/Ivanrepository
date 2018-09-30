@@ -207,30 +207,53 @@ class Start
 
 
   def create_train
-    number = @interface.enter_number("Train")
-    type = @interface.trains_by_type
-    unless create_train_type(number, type)
-      @interface.not_enter_anything
+    @interface.train_messange
+    train_type = gets.chomp
+    case train_type
+    when "1"
+      passenger_train
+    when "2"
+      cargo_train
+    else
+      @interface.variant_choose
+      create_train
     end
-  rescue RuntimeError => e
-    puts e.inspect
   end
 
-  def create_train_type(number, type)
-    if !check_train(number, type)
-      case type
-      when "Pass"
-        train = CargoTrain.new(number)
-      when "Cargo"
-        train = PassengerTrain.new(number)
+  def passenger_train
+    @interface.pass_train_ask
+    train_number = gets.chomp.to_s
+    @trains.each do |train|
+      if train.number == train_number
+        @interface.train_exist
+        return passenger_train
       end
-      @interface.train_created(train)
-      @trains << train
-    else
-      @interface.train_already_title
     end
-  rescue RuntimeError => e
-    puts e.inspect
+    begin
+      @trains << PassengerTrain.new(train_number)
+      puts "Train #{train_number} created"
+    rescue RuntimeError => e
+      puts e.inspect
+      return passenger_train
+    end
+  end
+
+  def cargo_train
+    @interface.cargo_train_ask
+    train_number = gets.chomp.to_s
+    @trains.each do |train|
+      if train.number == train_number
+        @interface.train_exist
+        return cargo_train
+      end
+    end
+    begin
+      @trains << CargoTrain.new(train_number)
+      puts "Train number #{train_number} has been created"
+    rescue RuntimeError => e
+      puts e.inspect
+      return cargo_train
+    end
   end
 
   def check_train(number, type)
