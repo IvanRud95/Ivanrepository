@@ -202,11 +202,6 @@ class Interface
     puts
   end
 
-  def get_manufacturer
-    puts "Enter company name"
-    gets.chomp
-  end
-
   def trains_number_type(number, type)
     puts "#{number} - #{type}"
   end
@@ -222,12 +217,16 @@ class Interface
     end
   end
 
+  def train_created(train_number)
+    puts "Train number #{train_number} has been created"
+  end
+
   def pass_train_ask
-    puts "Please enter nubmer one letter two numbers "
+    puts "Пожалуйста введите три буквы или цифры в любом порядке, необязательный дефис и еще 2 буквы или цифры после дефиса."
   end
 
   def cargo_train_ask
-    puts "Please enter nubmer one letter two numbers "
+    puts "Пожалуйста введите три буквы или цифры в любом порядке, необязательный дефис и еще 2 буквы или цифры после дефиса."
   end
 
 
@@ -243,7 +242,7 @@ class Interface
     puts 'There is no trains'
   end
 
-  def train_messange
+  def train_type_choise_message
     puts "Please enter train tyoe"
     puts "1. Passenger"
     puts "2. Cargo"
@@ -419,4 +418,5 @@ class Interface
   end
 
 end
+
 

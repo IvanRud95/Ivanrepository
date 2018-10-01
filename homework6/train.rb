@@ -8,7 +8,7 @@ class Train
   include Validation
   attr_reader :type, :wagons, :route, :number, :speed, :current_station_index
   @@all_trains = {}
-  NUMBER_FORMAT = /^(\d|[a-zа-я]){1}-?(\d|[1-9]){2}$/i
+  NUMBER_FORMAT = /^(\d|[a-z1-9]){3}-?(\d|[a-z1-9]){2}$/i
 
   def find(train_number)
     all_trains[train_number]

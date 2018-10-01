@@ -207,8 +207,8 @@ class Start
 
 
   def create_train
-    @interface.train_messange
-    train_type = gets.chomp
+    @interface.train_type_choise_message
+    train_type = @interface.enter_type
     case train_type
     when "1"
       passenger_train
@@ -222,7 +222,7 @@ class Start
 
   def passenger_train
     @interface.pass_train_ask
-    train_number = gets.chomp.to_s
+    train_number = @interface.enter_type
     @trains.each do |train|
       if train.number == train_number
         @interface.train_exist
@@ -231,16 +231,16 @@ class Start
     end
     begin
       @trains << PassengerTrain.new(train_number)
-      puts "Train #{train_number} created"
+      @interface.train_created(train_number)
     rescue RuntimeError => e
       puts e.inspect
-      return passenger_train
+      retry
     end
   end
 
   def cargo_train
     @interface.cargo_train_ask
-    train_number = gets.chomp.to_s
+    train_number = @interface.enter_type
     @trains.each do |train|
       if train.number == train_number
         @interface.train_exist
@@ -249,10 +249,10 @@ class Start
     end
     begin
       @trains << CargoTrain.new(train_number)
-      puts "Train number #{train_number} has been created"
+      @interface.train_created(train_number)
     rescue RuntimeError => e
       puts e.inspect
-      return cargo_train
+      retry
     end
   end
 
@@ -264,7 +264,7 @@ class Start
     if @trains.empty?
       @interface.not_trains_station
     else
-      @trains.each {|train| @interface.trains_number_type(train.number, train.type) }
+      @trains.each {|train| @interface.trains_number_type(train.number, train.type)}
     end
   end
 
@@ -423,3 +423,14 @@ class Start
     end
   end
 end
+
+def search_wagon_for_remove(train, number_wagon)
+  wagon_needed = train.wagons.detect {|wagon| wagon.number == number_wagon}
+  if wagon_needed
+    @interface.wagon_removed if train.remove_wagon(wagon_needed)
+  else
+    @interface.no_wagon_number(number_wagon)
+  end
+end
+
+
