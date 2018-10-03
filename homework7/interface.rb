@@ -415,8 +415,15 @@ class Interface
   def create_wagons
     puts 'Enter wagon name'
     gets.to_i
-  end
+  endЪ
 
+  def detail_wagon(train, wagon)
+    if wagon.type == "Cargo"
+       puts "Number train: #{train.number}, number wagon: #{wagon.number}, type: #{wagon.type}, обьем: #{wagon.capacity},
+       занятый обьем: #{wagon.take_capacity}, свободный обьем: #{wagon.free_capacity}"
+     else
+       puts "Номер поезда: #{train.number}, номер вагона: #{wagon.number}, тип: #{wagon.type}, 
+       всего мест: #{wagon.capacity}, занято: #{wagon.take_capacity}, свободно: #{wagon.free_capacity}"
+     end
+   end
 end
-
-
