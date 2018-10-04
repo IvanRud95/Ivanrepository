@@ -198,7 +198,9 @@ class Start
       when 4
         move_train
       when 5
-        managment_wagons
+        buy_tiсket_train
+      when 6
+        load_wagon_train
       else
         @interface.not_item_menu
       end
@@ -325,6 +327,8 @@ class Start
         check_wagon_and_train
       when 4 then
         del_wagon_to_train
+      when 5 then
+        list_wagons_train
       else
         @interface.not_enter_anything
       end
@@ -398,6 +402,95 @@ class Start
       else
         @interface.can_not_add_wagon
       end
+    end
+  end
+
+  def list_wagons_train
+    if @trains.length == 0
+      @interface.not_trains
+    elsif @wagons.length == 0
+      @interface.not_wagons
+    else
+      @trains.each do |train|
+        @interface.list_wagons_train_title(train)
+        train.wagons.each { |wagon| print wagon.number, " "  }
+        @interface.go
+      end
+    end
+  end
+
+  def buy_tiсket_train
+    number_train = @interface.create_train_menu
+    train_needed = search_train_needed(number_train)
+    if check_train(number_train,"Cargo")
+      @interface.train_created(train_needed)
+    elsif train_needed
+      check_for_ticket(train_needed)
+    else
+      @interface.not_number_train
+    end
+  end
+
+  def check_for_ticket(train_needed)
+    if train_needed.wagons.length != 0
+      @interface.list_wagons_train_title(train_needed)
+      train_needed.wagons.each { |wagon| print wagon.number, " "  }
+      @interface.new_line
+      number_wagon = @interface.number_wagon
+      wagon_needed = search_wagon_needed(number_wagon)
+      check_wagon_for_ticket(wagon_needed)
+    else
+      @interface.no_wagon_number(train_number)
+    end
+  end
+
+  def check_wagon_for_ticket(wagon_needed)
+    if wagon_needed
+      if wagon_needed.take_capacity
+        @interface.buy_tiсket_title
+      else
+        @interface.no_tickets
+      end
+    else
+      @interface.no_wagon
+    end
+  end
+
+  def add_wagon_train
+    number_train = @interface.create_train_menu
+    train_needed = search_train_needed(number_train)
+    if check_train(number_train,"пассажирский")
+      @interface.number_train_passenger_title
+    elsif train_needed
+      check_load_vagon(train_needed)
+    else
+      @interface.not_number_train
+    end
+  end
+
+  def check_add_vagon(train_needed)
+    if train_needed.vagons.length != 0
+      @interface.list_vagons_train_title(train_needed)
+      train_needed.vagons.each { |vagon| print vagon.number, " "  }
+      @interface.new_line
+      number_vagon = @interface.number_vagon
+      vagon_needed = search_vagon_needed(number_vagon)
+      load_vagon(vagon_needed)
+    else
+      @interface.not_one_vagon
+    end
+  end
+
+  def add_vagon(vagon_needed)
+    if vagon_needed
+      value = @interface.load_vagon_title
+      if vagon_needed.take_capacity(value)
+        @interface.add_cargo
+      else
+        @interfacel.imit_capacity_title
+      end
+    else
+      @interface.vagon_not_add_train_title
     end
   end
 

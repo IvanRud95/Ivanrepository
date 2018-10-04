@@ -14,10 +14,17 @@ class Wagon
     validate!
   end
 
+  def take_capacity(value)
+    @busy_capacity += value if free_capacity >= value
+  end
+
+  def free_capacity
+    @capacity - @busy_capacity
+  end
+  
   protected
 
   def validate!
     raise "Incorrect format. Put wagon number" if number.to_s !~ FORMAT_NUMBER
   end
 end
-

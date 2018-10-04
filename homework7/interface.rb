@@ -42,7 +42,9 @@ class Interface
     puts '1.Create wagon'
     puts '2.Wagons list'
     puts '3.Add wagon to train'
-    puts '4.Exit'
+    puts '4.Delete wagon from train'
+    puts '5.Wagon list for train'
+    puts '6.Exit'
     gets.to_i
   end
 
@@ -198,6 +200,18 @@ class Interface
     gets.chomp
   end
 
+  def buy_tiсket_title
+    puts "Ticket has been bought"
+  end
+
+  def no_wagon
+    puts "You dont have any wagons"
+  end
+
+  def no_tickets
+    puts "Tickets are over"
+  end
+
   def go
     puts
   end
@@ -346,6 +360,9 @@ class Interface
     gets.to_i
   end
 
+  def list_wagons_train_title(train)
+    print "Train number #{train.number}, added wagons: "
+  end
 
   def route_number_added(number_route)
     print "Route #{number_route}: "
@@ -356,7 +373,7 @@ class Interface
   end
 
   def wagon_added
-    puts "Wagon number #{number_vagon} has been added #{train_needed.number}"
+    puts "Wagon number #{number_wagon} has been added #{train_needed.number}"
   end
 
   def wagon_removed
@@ -415,15 +432,15 @@ class Interface
   def create_wagons
     puts 'Enter wagon name'
     gets.to_i
-  endЪ
+  end
 
   def detail_wagon(train, wagon)
     if wagon.type == "Cargo"
-       puts "Number train: #{train.number}, number wagon: #{wagon.number}, type: #{wagon.type}, обьем: #{wagon.capacity},
-       занятый обьем: #{wagon.take_capacity}, свободный обьем: #{wagon.free_capacity}"
+       puts "Number train: #{train.number}, number wagon: #{wagon.number}, type: #{wagon.type}, capacity: #{wagon.capacity},
+       take capacity: #{wagon.take_capacity}, free capacity: #{wagon.free_capacity}"
      else
-       puts "Номер поезда: #{train.number}, номер вагона: #{wagon.number}, тип: #{wagon.type}, 
-       всего мест: #{wagon.capacity}, занято: #{wagon.take_capacity}, свободно: #{wagon.free_capacity}"
+       puts "Number train: #{train.number}, number wagon: #{wagon.number}, type: #{wagon.type},
+       All places: #{wagon.capacity}, take : #{wagon.take_capacity}, free: #{wagon.free_capacity}"
      end
    end
 end

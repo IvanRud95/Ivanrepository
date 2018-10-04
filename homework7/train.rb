@@ -101,4 +101,8 @@ class Train
     @interface.train_number_type(@number, @type)
   end
 
+  def send_wagon_to_block
+    @wagons.each {|wagon| yield wagon}
+  end
+
 end
