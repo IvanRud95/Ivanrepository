@@ -44,7 +44,7 @@ class Interface
     puts '3.Add wagon to train'
     puts '4.Delete wagon from train'
     puts '5.Wagon list for train'
-    puts '6.Exit'
+    puts '0.Exit'
     gets.to_i
   end
 
@@ -139,8 +139,8 @@ class Interface
   end
 
 
-  def wagon_created
-    puts 'The wagon has been created'
+  def wagon_created(train)
+    puts "#{train.type} wagon number #{train.number}, with volume/places #{train.capacity} created"
   end
 
   def pass_wagon_created
@@ -192,6 +192,8 @@ class Interface
     gets.to_i
   end
 
+
+
   def create_train
     puts "train has been created "
   end
@@ -210,6 +212,11 @@ class Interface
 
   def no_tickets
     puts "Tickets are over"
+  end
+
+  def get_number(object_type)
+    puts "Enter number for#{object_type}"
+    gets.to_i
   end
 
   def go
@@ -231,8 +238,33 @@ class Interface
     end
   end
 
+  def list_wagons_train(train)
+    print "Train number #{train.number}, has been added wagons: "
+  end
+
+  def wagon_not_add_title
+    puts "Wagon with this number in not load to this train"
+  end
+
   def train_created(train_number)
     puts "Train number #{train_number} has been created"
+  end
+
+  def add_wagon_title
+    puts "Enter ammount for wagon load"
+    gets.to_f
+  end
+
+  def add_cargo
+    puts "Cargo has been add to the wagon"
+  end
+
+  def limit_capacity
+    puts "You ask too much"
+  end
+
+  def number_train_passenger_title
+    puts "This train is passenger"
   end
 
   def pass_train_ask
@@ -434,13 +466,36 @@ class Interface
     gets.to_i
   end
 
+  def pass_capacity
+    puts "Enter amount of free places in wagon"
+    gets.to_i
+  end
+
+  def cargo_capacity
+    puts "Enter volume of cargo wagon"
+    gets.to_i
+  end
+
+  def choose_wagon
+    puts "Choose wagon"
+    gets.to_i
+  end
+
+  def count_seats_wagon
+    puts "Please enter ammount of seats"
+  end
+
+  def capacity_wagon
+    puts "Please enter capacity for wagon"
+  end
+
   def detail_wagon(train, wagon)
     if wagon.type == "Cargo"
-       puts "Number train: #{train.number}, number wagon: #{wagon.number}, type: #{wagon.type}, capacity: #{wagon.capacity},
+      puts "Number train: #{train.number}, number wagon: #{wagon.number}, type: #{wagon.type}, capacity: #{wagon.capacity},
        take capacity: #{wagon.take_capacity}, free capacity: #{wagon.free_capacity}"
-     else
-       puts "Number train: #{train.number}, number wagon: #{wagon.number}, type: #{wagon.type},
+    else
+      puts "Number train: #{train.number}, number wagon: #{wagon.number}, type: #{wagon.type},
        All places: #{wagon.capacity}, take : #{wagon.take_capacity}, free: #{wagon.free_capacity}"
-     end
-   end
+    end
+  end
 end

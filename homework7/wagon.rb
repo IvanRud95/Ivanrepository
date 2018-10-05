@@ -5,12 +5,14 @@ class Wagon
   include Manufacturer
   include Validation
 
-  attr_reader :number, :type
+  attr_reader :number, :type, :capacity, :busy_capacity
   FORMAT_NUMBER = /[0-9]{3}/
 
-  def initialize(number)
+  def initialize(number, type, capacity)
     @number = number
     @type = type
+    @capacity = capacity
+    @busy_capacity = 0
     validate!
   end
 
@@ -21,7 +23,7 @@ class Wagon
   def free_capacity
     @capacity - @busy_capacity
   end
-  
+
   protected
 
   def validate!
