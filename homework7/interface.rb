@@ -1,5 +1,5 @@
 class Interface
-  attr_reader :routes_list
+  attr_reader :routes_list,
 
 
 
@@ -41,9 +41,11 @@ class Interface
   def wagones_managment_menu
     puts '1.Create wagon'
     puts '2.Wagons list'
-    puts '3.Add wagon to train'
+    puts '3.Buy ticket/ Take capacity'
     puts '4.Delete wagon from train'
-    puts '5.Wagon list for train'
+    puts '5.Add wagon to train'
+    puts '6.Wagons in train list'
+    puts '7.Trains list at station'
     puts '0.Exit'
     gets.to_i
   end
@@ -62,6 +64,10 @@ class Interface
     gets.chomp
   end
 
+  def name_station(name)
+    puts "Station :#{name}"
+  end
+
   def stations_name_exist
     puts 'Station already exist'
   end
@@ -74,7 +80,7 @@ class Interface
     puts 'Station has been created'
   end
 
-  def none_stationas
+  def none_stations
     puts 'There is no stations yet'
   end
 
@@ -104,8 +110,9 @@ class Interface
     puts 'There is no train in station'
   end
 
-  def trains_at_station
-    print 'Trains on station list'
+  def trains_at_stations
+    station_needed.trains.each { |train| print train.number, " "}
+    print "Trains at staion"
   end
 
   def check_stations_length
@@ -138,9 +145,16 @@ class Interface
     puts '2 - cargo'
   end
 
+  def wagon_number_added(number_wagons, number_train)
+    puts "Wagon number #{number_wagons} added to train #{number_train}"
+  end
 
-  def wagon_created(train)
-    puts "#{train.type} wagon number #{train.number}, with volume/places #{train.capacity} created"
+  def wagon_created(type,number,capacity)
+    puts "#{type} wagon number #{number}, with volume/places #{capacity} created"
+  end
+
+  def show_wagon_details(wagon)
+    puts "Wagon #{wagon.number} - #{wagon.type}"
   end
 
   def pass_wagon_created
@@ -228,7 +242,7 @@ class Interface
   end
 
   def trains_by_type
-    puts 'Enter train type: 1 - passenger, 2 - cargo'
+    puts "Enter train type: 1 - passenger, 2 - cargo"
     choise = gets.to_i
     case choise
     when 1

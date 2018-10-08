@@ -47,8 +47,14 @@ class Train
     @speed -= 1 if speed != 0
   end
 
-  def add_wagon
-    @wagons += 1 if @speed.zero?
+  def correct_type?(wagon)
+    wagon.type == self.type
+  end
+
+  def add_wagons(wagon)
+    if @speed == 0
+      @wagons.push(wagon)
+    end
   end
 
   def remove_wagon

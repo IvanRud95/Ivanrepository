@@ -320,44 +320,66 @@ class Start
 
       case item
       when 1 then
-        create_wagon
+        create_wagons
       when 2 then
         look_wagons
       when 3 then
-        check_wagon_and_train
+        wagon_ticket_service
       when 4 then
         del_wagon_to_train
       when 5 then
-        list_wagons_train
+        add_wagon_train_type
+      when 6 then
+        trains_information
+      when 7 then
+        station_information
       else
         @interface.not_enter_anything
       end
     end
   end
 
-  def create_wagon
-    number = @interface.create_wagon_menu
-    if number.zero?
-      @interface.not_enter_anything
-    elsif check_wagon_number(number)
-      @interface.wagon_already
-    else
-      type = @interface.type_wagon
+  def create_wagons
+    number = @interface.get_number(" Wagon")
+    type = @interface.trains_by_type
+    @interface.not_enter_anything unless create_wagons_type(number, type)
+  rescue RuntimeError => e
+    puts e.inspect
+    retry
+  end
+
+  def create_wagons_type(number, type)
+    if !check_wagons(number, type)
       case type
-      when 1
-        @interface.capacity_wagon
-        capacity = gets.to_f
-        @interface.cargo_wagon_created  if @wagons << CargoWagon.new(number, capacity)
-      when 2
-        @interface.count_seats_wagon
-        count_seats = gets.to_i
-        @interface.pass_wagon_created if @wagons << PassengerWagon.new(number, count_seats)
+      when "Passenger"
+        capacity = @interface.pass_capacity
+        wagon = PassengerWagon.new(number, capacity)
+      when "Cargo"
+        capacity = @interface.cargo_capacity
+        wagon = CargoWagon.new(number, capacity)
       end
+      @interface.wagon_created(type,number,capacity)
+      @wagons << wagon
+    else
+      @interface.train_already_title
+    end
+  end
+
+  def wagon_ticket_service
+    look_wagons
+    number = @interface.choose_wagon
+    wagon = search_wagon_needed(number)
+    if wagon.type == "Passenger"
+      take_ticket(wagon)
+    elsif wagon.type == "Cargo"
+      take_capacity(wagon)
+    else
+      @interface.not_item_menu
     end
   end
 
   def check_wagons(number, type)
-    @wagons.any? { |wagon| wagon.number == number && wagon.type == type && wagon.capacity == capacity }
+    @wagons.any? {|wagon| wagon.number == number && wagon.type == type && wagon.capacity == capacity}
   end
 
   def check_wagon_number(number_wagon)
@@ -368,7 +390,7 @@ class Start
     if @wagons.empty?
       @interface.not_wagons
     else
-      @wagons.each {|wagon| @interface.show_wagon_type(wagon.number, wagon.type)}
+      @wagons.each {|wagon| @interface.show_wagon_details(wagon) }
     end
   end
 
@@ -380,7 +402,7 @@ class Start
     @wagons.detect {|wagon| wagon.number == number_wagon}
   end
 
-  def check_wagon_and_train
+  def add_wagon_train_type
     @interface.only_cargo_passenger
     number_train = @interface.create_train_menu
     number_wagon = @interface.number_wagon
@@ -391,34 +413,12 @@ class Start
     elsif !wagon_needed
       @interface.not_number_wagon
     else
-      @interface.wagon_added if train_needed.add_wagon(wagon_needed)
+      @interface.wagon_number_added(number_wagons, number_train) if train_needed.add_wagons(wagons_needed)
     end
   end
 
-  def add_wagon_to_train(train_needed, wagon_needed)
-    if @interface.wagon_added
-      if train_needed.add_wagon(wagon_needed)
-      else
-        @interface.can_not_add_wagon
-      end
-    end
-  end
 
-  def list_wagons_train
-    if @trains.length == 0
-      @interface.not_trains
-    elsif @wagons.length == 0
-      @interface.not_wagons
-    else
-      @trains.each do |train|
-        @interface.list_wagons_train_title(train)
-        train.wagons.each {|wagon| print wagon.number, " "}
-        @interface.go
-      end
-    end
-  end
-
-  def buy_tiсket_train
+  def take_ticket
     number_train = @interface.create_train_menu
     train_needed = search_train_needed(number_train)
     if check_train(number_train, "Cargo")
@@ -443,53 +443,11 @@ class Start
     end
   end
 
-  def check_wagon_for_ticket(wagon_needed)
-    if wagon_needed
-      if wagon_needed.take_capacity
-        @interface.buy_tiсket_title
-      else
-        @interface.no_tickets
-      end
+  def add_wagons_to_train(train_needed, wagons_needed, number_wagons)
+    if train_needed.correct_type?(wagons_needed)
+      @interface.wagon_number_added(number_wagons, train_needed_number) if train_needed.add_wagons(wagons_needed)
     else
-      @interface.no_wagon
-    end
-  end
-
-  def add_wagon_train
-    number_train = @interface.create_train_menu
-    train_needed = search_train_needed(number_train)
-    if check_train(number_train,"Pass")
-      @interface.number_train_passenger_title
-    elsif train_needed
-      check_add_wagon(train_needed)
-    else
-      @interface.not_number_train
-    end
-  end
-
-  def check_add_wagon(train_needed)
-    if train_needed.wagons.length != 0
-      @interface.list_wagons_train(train_needed)
-      train_needed.wagons.each {|wagon| print wagon.number, " "}
-      @interface.go
-      number_wagon = @interface.number_wagon
-      wagon_needed = search_wagon_needed(number_wagon)
-      add_wagon(wagon_needed)
-    else
-      @interface.wagon_not_add_title
-    end
-  end
-
-  def add_wagon(wagon_needed)
-    if wagon_needed
-      value = @interface.add_wagon_title
-      if wagon_needed.take_capacity(value)
-        @interface.add_cargo
-      else
-        @interface.limit_capacity
-      end
-    else
-      @interface.wagon_not_add_title
+      @interface.can_not_add_wagon
     end
   end
 
@@ -512,6 +470,29 @@ class Start
       @interface.wagon_removed if train.remove_wagon(wagon_needed)
     else
       @interface.no_wagon_number(number_wagon)
+    end
+  end
+
+  def trains_information
+    @trains.each do |train|
+      unless train.route.nil?
+        train.send_wagon_to_block do |wagon|
+          @interface.detail_wagon(train, wagon)
+        end
+      end
+    end
+  end
+
+  def station_information
+    if stations.length == 0
+      @interface.none_stations
+    else
+      @stations.each do |station|
+        @interface.name_station(station.name)
+        station.send_train_to_block do |train|
+          @interface.trains_at_stations(train)
+        end
+      end
     end
   end
 end
