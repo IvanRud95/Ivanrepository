@@ -1,7 +1,5 @@
 class Interface
-  attr_reader :routes_list,
-
-
+  require_relative 'wagon.rb'
 
   def main_menu
     puts '1.Stations'
@@ -111,7 +109,7 @@ class Interface
   end
 
   def trains_at_stations
-    station_needed.trains.each { |train| print train.number, " "}
+    station_needed.trains.each {|train| print train.number, " "}
     print "Trains at staion"
   end
 
@@ -139,30 +137,35 @@ class Interface
     puts 'Enter wagon number'
   end
 
+  def cargo_full
+    puts 'cargo wagon is full'
+  end
+
   def enter_wagon_type
     puts 'Enter wagon type'
     puts '1 - passenger'
     puts '2 - cargo'
+    gets.to_i
   end
 
   def wagon_number_added(number_wagons, number_train)
     puts "Wagon number #{number_wagons} added to train #{number_train}"
   end
 
-  def wagon_created(type,number,capacity)
-    puts "#{type} wagon number #{number}, with volume/places #{capacity} created"
+  def wagon_created(wagon)
+    puts "#{wagon.type} wagon number #{wagon.number}, with volume/places #{wagon.capacity} created"
   end
 
-  def show_wagon_details(wagon)
-    puts "Wagon #{wagon.number} - #{wagon.type}"
+  def show_wagon_details(number_wagon,type_wagon)
+    puts "Wagon #{number_wagon} - #{type_wagon}"
   end
 
-  def pass_wagon_created
-    puts 'The wagon has been created'
+  def passenger_wagon_created(number)
+    puts "The wagon has been created #{number}"
   end
 
-  def cargo_wagon_created
-    puts 'The wagon has been created'
+  def cargo_wagon_created(number)
+    puts "The wagon has been created #{number}"
   end
 
   def route_created
@@ -207,7 +210,6 @@ class Interface
   end
 
 
-
   def create_train
     puts "train has been created "
   end
@@ -237,18 +239,22 @@ class Interface
     puts
   end
 
+  def wagons_number_type(number, type)
+    puts "#{number} - #{type}"
+  end
+
   def trains_number_type(number, type)
     puts "#{number} - #{type}"
   end
 
   def trains_by_type
-    puts "Enter train type: 1 - passenger, 2 - cargo"
+    puts 'Enter train type: 1 - passenger, 2 - cargo'
     choise = gets.to_i
     case choise
     when 1
-      "Passanger"
+      'Passanger'
     when 2
-      "Cargo"
+      'Cargo'
     end
   end
 
@@ -395,10 +401,6 @@ class Interface
 
   def wagon_already
     puts 'Wagon with this number already exist'
-  end
-
-  def show_wagon_type(wagon_number, wagon_type)
-    puts "Wagon #{wagon_number} - #{wagon_type}"
   end
 
   def route_number

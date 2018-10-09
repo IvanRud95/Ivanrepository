@@ -12,5 +12,5 @@ require_relative 'instance_counter'
 require_relative 'manufacturer'
 require_relative 'validation'
 
-start = Start.new
-start.main_menu
+test = Start.new
+test.main

@@ -2,8 +2,8 @@ class PassengerWagon < Wagon
 
   attr_reader :type
 
-  def initialize(number, seats)
-    super(number, "Pass", seats)
+  def initialize(number, capacity)
+    super(number, "Pass", capacity)
   end
 
   def take_capacity
