@@ -52,9 +52,7 @@ class Train
   end
 
   def add_wagons(wagon)
-    if @speed == 0
-      @wagons.push(wagon)
-    end
+    @wagons.push(wagon) if @speed.zero?
   end
 
   def remove_wagon

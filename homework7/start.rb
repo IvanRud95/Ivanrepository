@@ -242,11 +242,8 @@ class Start
     begin
       @trains << PassengerTrain.new(train_number)
       @interface.train_created(train_number)
-    rescue RuntimeError => e
-      puts e.inspect
-      retry
     end
-  end
+    end
 
   def cargo_train
     @interface.cargo_train_ask
@@ -260,10 +257,7 @@ class Start
     begin
       @trains << CargoTrain.new(train_number)
       @interface.train_created(train_number)
-    rescue RuntimeError => e
-      puts e.inspect
-      retry
-    end
+      end
   end
 
   def check_train(number, type)
@@ -351,9 +345,6 @@ class Start
     number = @interface.get_number(' Wagon')
     type = @interface.trains_by_type
     @interface.not_enter_anything unless create_wagons_type(number, type)
-  rescue RuntimeError => e
-    puts e.inspect
-    retry
   end
 
   def create_wagons_type(number, type)
@@ -366,7 +357,7 @@ class Start
         capacity = @interface.cargo_capacity
         wagon = CargoWagon.new(number,capacity)
       end
-      @interface.wagon_created
+      @interface.wagon_created(type,number,capacity)
       @wagons << wagon
     else
       @interface.train_already_title
@@ -402,7 +393,7 @@ class Start
     if @wagons.empty?
       @interface.not_wagons
     else
-      @wagons.each {|wagon| @interface.wagons_number_type(wagon.number,wagon.type)}
+      @wagons.each { |wagon| @interface.show_wagon_type(wagon.number, wagon.type) }
     end
   end
 

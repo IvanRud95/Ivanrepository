@@ -141,6 +141,13 @@ class Interface
     puts 'cargo wagon is full'
   end
 
+  def enter_train_type
+    puts 'Enter wagon type'
+    puts '1 - passenger'
+    puts '2 - cargo'
+    gets.to_i
+  end
+
   def enter_wagon_type
     puts 'Enter wagon type'
     puts '1 - passenger'
@@ -152,8 +159,8 @@ class Interface
     puts "Wagon number #{number_wagons} added to train #{number_train}"
   end
 
-  def wagon_created(wagon)
-    puts "#{wagon.type} wagon number #{wagon.number}, with volume/places #{wagon.capacity} created"
+  def wagon_created(type,number,capacity)
+    puts "#{type} wagon number #{number}, with volume/places #{capacity} created"
   end
 
   def show_wagon_details(number_wagon,type_wagon)
@@ -243,7 +250,7 @@ class Interface
     puts "#{number} - #{type}"
   end
 
-  def trains_number_type(number, type)
+  def show_wagon_type (number, type)
     puts "#{number} - #{type}"
   end
 
@@ -309,7 +316,7 @@ class Interface
   end
 
   def train_type_choise_message
-    puts "Please enter train tyoe"
+    puts "Please enter train type"
     puts "1. Passenger"
     puts "2. Cargo"
   end
@@ -436,11 +443,11 @@ class Interface
     puts "Station for train number #{number_train} #{current_station}"
   end
 
-  def station_forward
+  def station_forward(current_station)
     puts "Train has been mooved forward #{current_station}"
   end
 
-  def station_back
+  def station_back(current_station)
     puts "Train has been mooved back #{current_station}"
   end
 
@@ -453,11 +460,11 @@ class Interface
   end
 
   def train_pass(number)
-    puts "pass #{number} "
+    puts "pass #{number} created"
   end
 
   def train_cargo(number)
-    puts "cargo #{number} "
+    puts "cargo #{number} created"
   end
 
   def current_station(train)
@@ -514,4 +521,5 @@ class Interface
        All places: #{wagon.capacity}, take : #{wagon.take_capacity}, free: #{wagon.free_capacity}"
     end
   end
+
 end
