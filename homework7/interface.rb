@@ -108,7 +108,7 @@ class Interface
     puts 'There is no train in station'
   end
 
-  def trains_at_stations
+  def trains_at_stations(station_needed)
     station_needed.trains.each {|train| print train.number, " "}
     print "Trains at staion"
   end
