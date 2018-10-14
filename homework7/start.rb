@@ -243,7 +243,7 @@ class Start
       @trains << PassengerTrain.new(train_number)
       @interface.train_created(train_number)
     end
-    end
+  end
 
   def cargo_train
     @interface.cargo_train_ask
@@ -257,7 +257,7 @@ class Start
     begin
       @trains << CargoTrain.new(train_number)
       @interface.train_created(train_number)
-      end
+    end
   end
 
   def check_train(number, type)
@@ -268,7 +268,7 @@ class Start
     if @trains.empty?
       @interface.not_trains_station
     else
-      @trains.each {|train| @interface.trains_number_type(train.number, train.type)}
+      @trains.each {|train| @interface.train_number_type(train.number,train.type)}
     end
   end
 
@@ -342,26 +342,30 @@ class Start
   end
 
   def create_wagons
-    number = @interface.get_number(' Wagon')
-    type = @interface.trains_by_type
-    @interface.not_enter_anything unless create_wagons_type(number, type)
+    number = @interface.create_wagon_menu
+    if number.zero?
+      @interface.not_enter_anything
+    elsif check_wagon_number(number)
+      @interface.wagon_already
+    else
+      type = @interface.type_wagon
+      case type
+      when 1 then create_wagon_cargo(number)
+      when 2 then create_wagon_passenger(number)
+      end
+    end
   end
 
-  def create_wagons_type(number, type)
-    if !check_wagons(number, type)
-      case type
-      when 'Pass'
-        capacity = @interface.pass_capacity
-        wagon = PassengerWagon.new(number,capacity)
-      when 'Cargo'
-        capacity = @interface.cargo_capacity
-        wagon = CargoWagon.new(number,capacity)
-      end
-      @interface.wagon_created(type,number,capacity)
-      @wagons << wagon
-    else
-      @interface.train_already_title
-    end
+  def create_wagon_cargo(number)
+    @interface.capacity_wagon
+    capacity = gets.to_f
+    @interface.cargo_wagon_created(number) if @wagons << CargoWagon.new(number, capacity)
+  end
+
+  def create_wagon_passenger(number)
+    @interface.count_seats_wagon
+    count_seats = gets.to_i
+    @interface.pass_wagon_created(number) if @wagons << PassengerWagon.new(number, count_seats)
   end
 
   def wagon_ticket_service

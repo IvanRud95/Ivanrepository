@@ -415,6 +415,14 @@ class Interface
     gets.to_i
   end
 
+  def pass_train_created(number)
+    puts "Pass train number#{number} created"
+  end
+
+  def cargo_train_created(number)
+    puts "Cargo train number#{number} created"
+  end
+
   def list_wagons_train_title(train)
     print "Train number #{train.number}, added wagons: "
   end
@@ -453,6 +461,10 @@ class Interface
 
   def train_number_type(number, train)
     puts "#{number} - #{train}"
+  end
+
+  def free_capacity(wagon)
+    puts " #{wagon.free_capacity} left"
   end
 
   def train_data
