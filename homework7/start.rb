@@ -314,7 +314,7 @@ class Start
   def move_train!(train_needed)
     current_station = train_needed.current_station
     @interface.show_current_station_train(train_needed, current_station)
-    @interface.move_train  
+    @interface.move_train
     case move_train
     when 1 then
       move_train_forward(train_needed)
