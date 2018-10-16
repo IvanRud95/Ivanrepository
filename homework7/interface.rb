@@ -62,6 +62,11 @@ class Interface
     gets.chomp
   end
 
+  def create_train_menu(name)
+    puts "Enter train number :#{name}"
+    gets.chomp
+  end
+
   def name_station(name)
     puts "Station :#{name}"
   end
@@ -175,6 +180,36 @@ class Interface
     puts "The wagon has been created #{number}"
   end
 
+  def list_routes
+    puts "Rotes list:"
+  end
+
+  def show_current_station_train(number_train, current_station)
+    puts "Current station #{number_train} #{current_station}"
+  end
+
+  def show_move_forward_station
+    puts "Train mooved forward"
+  end
+
+  def show_move_backward_station
+    puts "Train mooved backward"
+  end
+
+  def show_trains_current_station(train)
+    puts "Текущая станция для поезда #{train.number} #{train.current_station.name} "
+  end
+
+  def trains_move
+    puts "1.Train moves forward"
+    puts "2.Train moves backward"
+    gets.to_i
+  end
+
+  def list_trains
+    puts "Trains list:"
+  end
+
   def route_created
     puts 'The route has been created'
   end
@@ -187,8 +222,8 @@ class Interface
     puts 'The route dont exist'
   end
 
-  def number_route
-    puts 'Enter route number'
+  def number_route(name)
+    puts "Enter route number :#{name}"
     gets.to_i
   end
 
@@ -209,11 +244,6 @@ class Interface
     puts 'You cant delete first and last station'
     puts 'Enter station name to remove'
     gets.chomp
-  end
-
-  def create_train_menu
-    puts 'Enter train number'
-    gets.to_i
   end
 
 

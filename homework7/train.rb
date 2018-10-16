@@ -61,36 +61,40 @@ class Train
     end
   end
 
-  def add_route(route)
+  def set_route(route)
     @route = route
     route.first_station.add_train(self)
-    @station_index = 0
+    @current_station_index = 0
+  end
+
+  def route_in_use(route)
+    @route = route
+    @current_station_index = 0
+    route.first_station.add_train(self)
   end
 
   def move_forward
     if next_station
       current_station.send_train(self)
       next_station.add_train(self)
-      @index_station += 1
+      @current_station_index += 1
     end
   end
 
-  def route_use(route)
-    @route = route
-    @current_station_index = 0
-    route.first_station.add_train(self)
-  end
 
   def move_back
     if previous_station
       current_station.send_train(self)
       previous_station.add_train(self)
-      @index_station -= 1
+      @current_station_index -= 1
     end
   end
 
+
   def current_station
-    route.stations[@current_station_index]
+    if route
+      route.stations[@current_station_index]
+    end
   end
 
   def previous_station
