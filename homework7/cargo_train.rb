@@ -4,8 +4,14 @@ class CargoTrain < Train
     super(number, 'cargo')
   end
 
-  def add_wagon
-    super if wagon.type == @type
+  def check_type_wagons?(wagon)
+    wagon.type == 'cargo'
+  end
+
+  def add_wagons(wagon)
+    if check_type_wagons?(wagon)
+      super(wagon)
+    end
   end
 
 end

@@ -131,10 +131,10 @@ class Start
 
 
   def create_route
-    start_station_title = @interface.request_start_station_title
-    end_station_title = @interface.request_end_station_title
-    first_station = @stations.detect {|station| station.name == start_station_title}
-    last_station = @stations.detect {|station| station.name == end_station_title}
+    start_station_title = @interface.routes_first
+    end_station_title = @interface.routes_last
+    first_station = @stations.detect { |station| station.name == start_station_title }
+    last_station = @stations.detect { |station| station.name == end_station_title }
     if first_station && last_station
       @interface.route_created if @routes << Route.new(first_station, last_station)
     else
@@ -273,23 +273,14 @@ class Start
 
   def check_route_to_train
     list_routes_train
-    train_number = @interface.create_train_menu(" Train")
+    number_train = @interface.create_train_menu(" Train")
     number_route = @interface.number_route(" Route")
-    train_needed = @trains.detect {|train| train.number == train_number}
-    route_use = @routes[number_route - 1]
-    set_route_to_train(train_number, number_route, train_needed, route_use)
+    set_route_to_train(number_train, number_route)
   end
 
-  def set_route_to_train(train_number, number_route, train_needed, route_use)
-    if train_needed.nil?
-      @interface.not_number_train
-    elsif route_use.nil?
-      @interface.not_number_route
-      if train_number != 0 && number_route != 0
-        @interface.set_route if train_needed.set_route(route_use)
-      else
-        @interface.not_enter_anything
-      end
+  def set_route_to_train(train_needed, route_use)
+    if train_needed && route_use
+      @interface.set_route if train_needed.set_route(route_use)
     end
   end
 
@@ -301,25 +292,25 @@ class Start
   end
 
   def move_train
-    @trains.each { |train| @interface.train_number_type(train.number, train.type) }
+    @trains.each {|train| @interface.train_number_type(train.number, train.type)}
     train_number = @interface.create_train_menu(" Train")
-    train_needed = @trains.detect { |train| train.number == train_number}
-    if !train_needed && train_needed.nil?
+    train_needed = @trains.detect {|train| train.number == train_number}
+    unless train_needed
       @interface.not_number_train
     else
       move_train!(train_needed)
     end
   end
 
-  def move_train!(train_needed)
-    current_station = train_needed.current_station
-    @interface.show_current_station_train(train_needed, current_station)
+  def move_train!(number_train)
+    current_station = number_train.current_station
+    @interface.show_current_station_train(number_train, current_station)
     @interface.move_train
     case move_train
     when 1 then
-      move_train_forward(train_needed)
+      move_train_forward(number_train)
     when 2 then
-      move_train_back(train_needed)
+      move_train_back(number_train)
     else
       @interface.not_enter_anything
     end

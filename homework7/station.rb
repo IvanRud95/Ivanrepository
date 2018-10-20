@@ -16,7 +16,7 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
-    @@all_stations.push(self)
+    @@all_stations << self
     register_instances
     validate!
   end
@@ -41,6 +41,7 @@ class Station
   def all_trains
     trains.each {|train| puts "#{train.number} #{train.type}"}
   end
+
 
   def trains_by_type(type)
     @trains.select {|train| train.type == type}

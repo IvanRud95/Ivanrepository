@@ -227,6 +227,16 @@ class Interface
     gets.to_i
   end
 
+  def routes_last
+    puts "Enter fist station"
+    gets.chomp
+  end
+
+  def routes_first
+    puts "Enter last station"
+    gets.chomp
+  end
+
   def not_route
     puts 'This route dont exist'
   end
@@ -464,6 +474,7 @@ class Interface
   def puts_name
     puts
   end
+
 
   def wagon_added
     puts "Wagon number #{number_wagon} has been added #{train_needed.number}"

@@ -7,15 +7,15 @@ class Train
   include InstanceCounter
   include Validation
   attr_reader :type, :wagons, :route, :number, :speed, :current_station_index
-  @@all_trains = {}
+  @@trains = {}
   NUMBER_FORMAT = /^(\d|[a-z1-9]){3}-?(\d|[a-z1-9]){2}$/i
 
   def find(train_number)
-    all_trains[train_number]
+    trains[train_number]
   end
 
   def self.all_instances
-    @@all_trains
+    @@trains
   end
 
   def initialize(number, type)
@@ -23,7 +23,7 @@ class Train
     @type = type
     @wagons = []
     @speed = 0
-    @@all_trains[number] = self
+    @@trains[number] = self
     @interface = Interface.new
     register_instances
     validate!
