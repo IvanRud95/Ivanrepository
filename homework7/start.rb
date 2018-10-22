@@ -162,7 +162,8 @@ class Start
 
 
   def add_station_in_route
-    number_route = @interface.number_route - 1
+    look_routes
+    number_route = @interface.number_set- 1
     if @routes[number_route].nil?
       @interface.not_route
     else
@@ -177,7 +178,7 @@ class Start
   end
 
   def del_station_from_route
-    number_route = @interface.number_set("Route") - 1
+    number_route = @interface.number_set - 1
     if @routes[number_route].nil?
       interface.not_route
     else
@@ -273,15 +274,14 @@ class Start
 
   def check_route_to_train
     list_routes_train
-    number_train = @interface.create_train_menu(" Train")
-    number_route = @interface.number_route(" Route")
+    number_train = @interface.create_train_menu
+    number_route = @interface.set_number_route
     set_route_to_train(number_train, number_route)
   end
 
   def set_route_to_train(train_needed, route_use)
-    if train_needed && route_use
-      @interface.set_route if train_needed.set_route(route_use)
-    end
+    @interface.set_route if train_needed.route_in_use(route_use)
+    @interface.not_enter_anything
   end
 
   def list_routes_train

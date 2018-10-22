@@ -62,8 +62,8 @@ class Interface
     gets.chomp
   end
 
-  def create_train_menu(name)
-    puts "Enter train number :#{name}"
+  def create_train_menu
+    puts "Enter train number "
     gets.chomp
   end
 
@@ -222,8 +222,12 @@ class Interface
     puts 'The route dont exist'
   end
 
-  def number_route(name)
-    puts "Enter route number :#{name}"
+  def number_route
+    puts "Route number "
+  end
+
+  def set_number_route
+    puts "route number"
     gets.to_i
   end
 
