@@ -232,12 +232,12 @@ class Interface
   end
 
   def routes_last
-    puts "Enter fist station"
+    puts "Enter last station"
     gets.chomp
   end
 
   def routes_first
-    puts "Enter last station"
+    puts "Enter first station"
     gets.chomp
   end
 
