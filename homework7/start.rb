@@ -276,12 +276,13 @@ class Start
     list_routes_train
     number_train = @interface.create_train_menu
     number_route = @interface.set_number_route
-    set_route_to_train(number_train, number_route)
+    train_needed = @trains.detect {|train| train.number == number_train}
+    route_use = @routes[number_route - 1]
+    set_route_to_train(train_needed, route_use)
   end
 
-  def set_route_to_train(train_needed, route_use)
-    @interface.set_route if train_needed.route_in_use(route_use)
-    @interface.not_enter_anything
+  def set_route_to_train(number_train, number_route)
+    @interface.set_route if number_train.route_in_use(number_route)
   end
 
   def list_routes_train
@@ -293,24 +294,23 @@ class Start
 
   def move_train
     @trains.each {|train| @interface.train_number_type(train.number, train.type)}
-    train_number = @interface.create_train_menu(" Train")
+    train_number = @interface.create_train_menu
     train_needed = @trains.detect {|train| train.number == train_number}
-    unless train_needed
+    if !train_needed && train_needed.nil?
       @interface.not_number_train
     else
       move_train!(train_needed)
     end
   end
 
-  def move_train!(number_train)
-    current_station = number_train.current_station
-    @interface.show_current_station_train(number_train, current_station)
+  def move_train!(train_needed)
+    @interface.show_current_station_train(train_needed)
     @interface.move_train
     case move_train
     when 1 then
-      move_train_forward(number_train)
+      move_train_forward(train_needed)
     when 2 then
-      move_train_back(number_train)
+      move_train_back(train_needed)
     else
       @interface.not_enter_anything
     end
@@ -504,5 +504,4 @@ class Start
     end
   end
 end
-
 

@@ -184,8 +184,8 @@ class Interface
     puts "Rotes list:"
   end
 
-  def show_current_station_train(number_train, current_station)
-    puts "Current station #{number_train} #{current_station}"
+  def show_current_station_train(train)
+    puts "Current station #{train.number} #{train.current_station.name}"
   end
 
   def show_move_forward_station
