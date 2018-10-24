@@ -306,7 +306,6 @@ class Start
 
   def move_train(train_needed)
     @interface.show_current_station_train(train_needed)
-    @interface.trains_move
     move_train = @interface.trains_move
     case move_train
     when 1 then move_train_forward(train_needed)
@@ -404,9 +403,10 @@ class Start
 
 
   def look_wagons
-    if @wagons.length == 0
+    if @wagons.empty?
       @interface.not_wagons
-      @wagons.each {| wagon | @interface.show_wagon_type(wagon.number, wagon.type )}
+    else
+      @wagons.each {|wagon| @interface.show_wagon_type(wagon.number, wagon.type)}
     end
   end
 
@@ -417,6 +417,7 @@ class Start
   def search_wagon_needed(number_wagon)
     @wagons.detect {|wagon| wagon.number == number_wagon}
   end
+
 
   def add_wagon_train_type
     @interface.only_cargo_passenger
