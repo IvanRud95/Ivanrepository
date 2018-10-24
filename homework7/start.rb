@@ -163,7 +163,7 @@ class Start
 
   def add_station_in_route
     look_routes
-    number_route = @interface.number_set- 1
+    number_route = @interface.number_set - 1
     if @routes[number_route].nil?
       @interface.not_route
     else
@@ -180,7 +180,7 @@ class Start
   def del_station_from_route
     number_route = @interface.number_set - 1
     if @routes[number_route].nil?
-      interface.not_route
+      @interface.not_route
     else
       name = @interface.name_remove_station
       name_add_station = @stations.detect {|station| station.name == name}
@@ -205,7 +205,7 @@ class Start
       when 3
         check_route_to_train
       when 4
-        move_train
+        check_train_before_move
       when 5
         buy_tiсket_train
       when 6
@@ -281,8 +281,8 @@ class Start
     set_route_to_train(train_needed, route_use)
   end
 
-  def set_route_to_train(number_train, number_route)
-    @interface.set_route if number_train.route_in_use(number_route)
+  def set_route_to_train(train_needed, number_route)
+    @interface.set_route if train_needed.route_in_use(number_route)
   end
 
   def list_routes_train
@@ -292,25 +292,25 @@ class Start
     look_trains
   end
 
-  def move_train
-    @trains.each {|train| @interface.train_number_type(train.number, train.type)}
-    train_number = @interface.create_train_menu
-    train_needed = @trains.detect {|train| train.number == train_number}
+  def check_train_before_move
+    @interface.list_created_trains
+    look_trains
+    number_train = @interface.create_train_menu
+    train_needed = @trains.detect {|train| train.number == number_train}
     if !train_needed && train_needed.nil?
       @interface.not_number_train
     else
-      move_train!(train_needed)
+      move_train(train_needed)
     end
   end
 
-  def move_train!(train_needed)
+  def move_train(train_needed)
     @interface.show_current_station_train(train_needed)
-    @interface.move_train
+    @interface.trains_move
+    move_train = @interface.trains_move
     case move_train
-    when 1 then
-      move_train_forward(train_needed)
-    when 2 then
-      move_train_back(train_needed)
+    when 1 then move_train_forward(train_needed)
+    when 2 then move_train_back(train_needed)
     else
       @interface.not_enter_anything
     end
@@ -321,7 +321,7 @@ class Start
   end
 
   def move_train_back(train_needed)
-    @interface.show_move_backward_station if train_needed.move_back
+    @interface.show_move_back_station if train_needed.move_back
   end
 
   def wagons_managment_menu
@@ -369,12 +369,13 @@ class Start
     @interface.capacity_wagon
     capacity = gets.to_f
     @interface.cargo_wagon_created(number) if @wagons << CargoWagon.new(number, capacity)
+
   end
 
   def create_wagon_passenger(number)
-    @interface.count_seats_wagon
-    count_seats = gets.to_i
-    @interface.pass_wagon_created(number) if @wagons << PassengerWagon.new(number, count_seats)
+    @interface.capacity_wagon
+    capacity = gets.to_f
+    @interface.passenger_wagon_created(number) if @wagons << PassengerWagon.new(number, capacity)
   end
 
   def wagon_ticket_service
@@ -386,7 +387,7 @@ class Start
     elsif wagon.type == "Cargo"
       take_capacity(wagon)
     else
-      @interface.not_item_menu
+       @interface.not_number_wagon
     end
   end
 
@@ -403,10 +404,9 @@ class Start
 
 
   def look_wagons
-    if @wagons.empty?
+    if @wagons.length == 0
       @interface.not_wagons
-    else
-      @wagons.each { |wagon| @interface.show_wagon_type(wagon.number, wagon.type) }
+      @wagons.each {| wagon | @interface.show_wagon_type(wagon.number, wagon.type )}
     end
   end
 

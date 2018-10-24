@@ -37,7 +37,7 @@ class Interface
   end
 
   def wagones_managment_menu
-    puts '1.Create wagon'
+    puts '1.Create wagon, format:3 numbers in a row'
     puts '2.Wagons list'
     puts '3.Buy ticket/ Take capacity'
     puts '4.Delete wagon from train'
@@ -109,6 +109,10 @@ class Interface
     puts 'Station was not found'
   end
 
+  def wagon_name_exist
+    puts "wagon name already exist "
+  end
+
   def not_trains_station
     puts 'There is no train in station'
   end
@@ -122,9 +126,12 @@ class Interface
     puts 'You should created at least 2 stations'
   end
 
+  def show_vagon_type(wagon_number, wagon_type)
+    puts "Wagon: #{wagon_number} - #{wagon_type}"
+  end
 
-  def number_set(object_type)
-    puts "Enter number #{object_type}"
+  def number_set
+    puts "Enter number "
     gets.to_i
   end
 
@@ -184,15 +191,15 @@ class Interface
     puts "Rotes list:"
   end
 
-  def show_current_station_train(train)
-    puts "Current station #{train.number} #{train.current_station.name}"
+  def show_current_station_train(train_needed)
+    puts "Current station for train #{train_needed.number} is #{train_needed.current_station.name}"
   end
 
   def show_move_forward_station
     puts "Train mooved forward"
   end
 
-  def show_move_backward_station
+  def show_move_back_station
     puts "Train mooved backward"
   end
 
@@ -205,6 +212,7 @@ class Interface
     puts "2.Train moves backward"
     gets.to_i
   end
+
 
   def list_trains
     puts "Trains list:"

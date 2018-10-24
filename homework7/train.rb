@@ -90,7 +90,6 @@ class Train
     end
   end
 
-
   def current_station
     if route
       route.stations[@current_station_index]
