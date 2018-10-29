@@ -16,8 +16,8 @@ class Route
   private
 
   def validate!
-    raise "This start station didnt exist" unless first_station.kind_of? Station
-    raise "This end station didnt exist" unless last_station.kind_of? Station
+    raise "This start station didnt exist" unless first_station.is_a? Station
+    raise "This end station didnt exist" unless last_station.is_a? Station
     raise "First and last stations should be different" if first_station == last_station
   end
 

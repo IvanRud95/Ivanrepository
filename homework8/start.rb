@@ -38,15 +38,15 @@ class Start
 
   def stations_managment
     loop do
-      item_stations_managment = @interface.station_managment_menu
-      break if item_stations_managment.zero?
+      item_stations = @interface.station_managment_menu
+      break if item_stations.zero?
 
-      stations_managment_menu(item_stations_managment)
+      stations_managment_menu(item_stations)
     end
   end
 
-  def stations_managment_menu(item_stations_managment)
-    case item_stations_managment
+  def stations_managment_menu(item_stations)
+    case item_stations
     when 1
       create_station
     when 2
@@ -493,7 +493,7 @@ class Start
   end
 
   def station_information
-    if stations.length == 0
+    if stations.zero?
       @interface.none_stations
     else
       @stations.each do |station|
