@@ -267,7 +267,7 @@ class Start
     list_routes_train
     number_train = @interface.create_train_menu
     number_route = @interface.set_number_route
-    train_needed = @trains.detect {|train| train.number == number_train}
+    train_needed = @trains.detect { |train| train.number == number_train }
     route_use = @routes[number_route - 1]
     set_route_to_train(train_needed, route_use)
   end
@@ -287,7 +287,7 @@ class Start
     @interface.list_created_trains
     look_trains
     number_train = @interface.create_train_menu
-    train_needed = @trains.detect {|train| train.number == number_train}
+    train_needed = @trains.detect { |train| train.number == number_train }
     if !train_needed && train_needed.nil?
       @interface.not_number_train
     else
@@ -445,7 +445,8 @@ class Start
 
   def add_wagons_to_train(train_needed, wagons_needed, number_wagons)
     if train_needed.correct_type?(wagons_needed)
-      @interface.wagon_number_added(number_wagons, train_needed_number) if train_needed.add_wagons(wagons_needed)
+      @interface.wagon_number_added(number_wagons, train_needed.number) if
+          train_needed.add_wagons(wagons_needed)
     else
       @interface.can_not_add_wagon
     end

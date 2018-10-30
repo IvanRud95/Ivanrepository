@@ -9,9 +9,7 @@ class CargoTrain < Train
   end
 
   def add_wagons(wagon)
-    if check_type_wagons?(wagon)
-      super(wagon)
-    end
+    super(wagon) if check_type_wagons?(wagon)
   end
-
 end
+

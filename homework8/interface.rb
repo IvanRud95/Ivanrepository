@@ -263,7 +263,6 @@ class Interface
     gets.chomp
   end
 
-
   def create_train
     puts 'train has been created '
   end
@@ -381,7 +380,7 @@ class Interface
   end
 
   def not_number_route
-    puts 'Theris no rute with this number'
+    puts 'There is no route with this number'
   end
 
   def set_route
@@ -394,11 +393,11 @@ class Interface
     gets.to_i
   end
 
-  def move_train_forward
+  def move_train_forward(current_station)
     puts "Train has been moved forward #{current_station}"
   end
 
-  def move_train_back
+  def move_train_back(current_station)
     puts "Train has been moved back#{current_station}"
   end
 
@@ -580,5 +579,4 @@ class Interface
         free: #{wagon.free_capacity}"
     end
   end
-
 end
