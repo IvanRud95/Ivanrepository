@@ -32,9 +32,9 @@ class Train
   protected
 
   def validate!
-    raise "You didnt put anything" if number.nil?
-    raise "You didnt choose type of the train" if type.nil?
-    raise "Incorrect format number " if number !~ NUMBER_FORMAT
+    raise 'You didnt put anything' if number.nil?
+    raise 'You didnt choose type of the train' if type.nil?
+    raise 'Incorrect format number ' if number.to_s !~ NUMBER_FORMAT
   end
 
   public
@@ -48,20 +48,18 @@ class Train
   end
 
   def correct_type?(wagon)
-    wagon.type == self.type
+    wagon.type == type
   end
 
   def add_wagons(wagon)
     @wagons.push(wagon) if @speed.zero?
   end
 
-  def remove_wagon
-    if @speed.zero? && @wagons > 0
-      @wagons -= 1
-    end
+  def remove_wagons(wagon)
+    @wagons.delete(wagon) if !@wagons.empty? && speed.zero?
   end
 
-  def set_route(route)
+  def go_route(route)
     @route = route
     route.first_station.add_train(self)
     @current_station_index = 0
@@ -97,11 +95,15 @@ class Train
   end
 
   def previous_station
-    route.stations[@current_station_index - 1] if @current_station_index > 0
+    route.stations[@current_station_index - 1]
+    if @current_station_index > 0
+    end
   end
 
   def next_station
-    route.stations[@current_station_index + 1] if @current_station_index < route.stations.length - 1
+    route.stations[@current_station_index + 1]
+    if @current_station_index < route.stations.length - 1
+    end
   end
 
   def train_number_type
@@ -109,7 +111,7 @@ class Train
   end
 
   def send_wagon_to_block
-    @wagons.each {|wagon| yield wagon}
+    @wagons.each { |wagon| yield wagon }
   end
 
 end

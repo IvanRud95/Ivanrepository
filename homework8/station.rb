@@ -25,7 +25,7 @@ class Station
   private
 
   def validate!
-    raise "You must enter station name!" if name.nil? || name.empty?
+    raise 'You must enter station name!' if name.nil? || name.empty?
   end
 
   public

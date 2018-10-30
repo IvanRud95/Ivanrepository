@@ -27,6 +27,7 @@ class Wagon
   protected
 
   def validate!
-    raise "Incorrect format. Put wagon number" if number.to_s !~ FORMAT_NUMBER
+    raise 'Incorrect format. Put wagon number' if
+        number.to_s !~ FORMAT_NUMBER
   end
 end

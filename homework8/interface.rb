@@ -10,7 +10,7 @@ class Interface
     gets.to_i
   end
 
-  def station_managment_menu
+  def station_management_menu
     puts '1.Create station'
     puts '2.Station List'
     puts '3.Delete station'
@@ -18,7 +18,7 @@ class Interface
     gets.to_i
   end
 
-  def routes_managment_menu
+  def routes_management_menu
     puts '1.Create Route'
     puts '2.Routes list'
     puts '3.Add station to the route'
@@ -27,7 +27,7 @@ class Interface
     gets.to_i
   end
 
-  def trains_managment_menu
+  def trains_management_menu
     puts '1.Create train'
     puts '2.Train list'
     puts '3.Add route to the train'
@@ -36,7 +36,7 @@ class Interface
     gets.to_i
   end
 
-  def wagones_managment_menu
+  def wagons_management_menu
     puts '1.Create wagon, format:3 numbers in a row'
     puts '2.Wagons list'
     puts '3.Buy ticket/ Take capacity'
@@ -48,8 +48,7 @@ class Interface
     gets.to_i
   end
 
-
-  def get_answer
+  def answer
     gets.chomp
   end
 
@@ -63,7 +62,7 @@ class Interface
   end
 
   def create_train_menu
-    puts "Enter train number "
+    puts 'Enter train number '
     gets.chomp
   end
 
@@ -110,7 +109,7 @@ class Interface
   end
 
   def wagon_name_exist
-    puts "wagon name already exist "
+    puts 'wagon name already exist '
   end
 
   def not_trains_station
@@ -119,19 +118,15 @@ class Interface
 
   def trains_at_stations(station_needed)
     station_needed.trains.each {|train| print train.number, " "}
-    print "Trains at staion"
+    print 'rains at station'
   end
 
   def check_stations_length
     puts 'You should created at least 2 stations'
   end
 
-  def show_vagon_type(wagon_number, wagon_type)
-    puts "Wagon: #{wagon_number} - #{wagon_type}"
-  end
-
   def number_set
-    puts "Enter number "
+    puts 'Enter number '
     gets.to_i
   end
 
@@ -188,7 +183,7 @@ class Interface
   end
 
   def list_routes
-    puts "Rotes list:"
+    puts 'Rotes list:'
   end
 
   def show_current_station_train(train_needed)
@@ -196,11 +191,11 @@ class Interface
   end
 
   def show_move_forward_station
-    puts "Train mooved forward"
+    puts 'Train moved forward'
   end
 
   def show_move_back_station
-    puts "Train mooved backward"
+    puts 'Train moved backward'
   end
 
   def show_trains_current_station(train)
@@ -208,14 +203,14 @@ class Interface
   end
 
   def trains_move
-    puts "1.Train moves forward"
-    puts "2.Train moves backward"
+    puts '1.Train moves forward'
+    puts '2.Train moves backward'
     gets.to_i
   end
 
 
   def list_trains
-    puts "Trains list:"
+    puts 'Trains list:'
   end
 
   def route_created
@@ -231,21 +226,21 @@ class Interface
   end
 
   def number_route
-    puts "Route number "
+    puts 'Route number '
   end
 
   def set_number_route
-    puts "route number"
+    puts 'route number'
     gets.to_i
   end
 
   def routes_last
-    puts "Enter last station"
+    puts 'Enter last station'
     gets.chomp
   end
 
   def routes_first
-    puts "Enter first station"
+    puts 'Enter first station'
     gets.chomp
   end
 
@@ -270,23 +265,23 @@ class Interface
 
 
   def create_train
-    puts "train has been created "
+    puts 'train has been created '
   end
 
   def enter_type
     gets.chomp
   end
 
-  def buy_tiсket_title
-    puts "Ticket has been bought"
+  def buy_tiсket_tittle
+    puts 'Ticket has been bought'
   end
 
   def no_wagon
-    puts "You dont have any wagons"
+    puts 'You dont have any wagons'
   end
 
   def no_tickets
-    puts "Tickets are over"
+    puts 'Tickets are over'
   end
 
   def get_number(object_type)
@@ -308,10 +303,10 @@ class Interface
 
   def trains_by_type
     puts 'Enter train type: 1 - passenger, 2 - cargo'
-    choise = gets.to_i
-    case choise
+    choice = gets.to_i
+    case choice
     when 1
-      'Passanger'
+      'Passenger'
     when 2
       'Cargo'
     end
@@ -322,7 +317,7 @@ class Interface
   end
 
   def wagon_not_add_title
-    puts "Wagon with this number in not load to this train"
+    puts 'Wagon with this number in not load to this train'
   end
 
   def train_created(train_number)
@@ -330,47 +325,47 @@ class Interface
   end
 
   def add_wagon_title
-    puts "Enter ammount for wagon load"
+    puts 'Enter amount for wagon load'
     gets.to_f
   end
 
   def add_cargo
-    puts "Cargo has been add to the wagon"
+    puts 'Cargo has been add to the wagon'
   end
 
   def limit_capacity
-    puts "You ask too much"
+    puts 'You ask too much'
   end
 
   def number_train_passenger_title
-    puts "This train is passenger"
+    puts 'This train is passenger'
   end
 
   def pass_train_ask
-    puts "Пожалуйста введите три буквы или цифры в любом порядке, необязательный дефис и еще 2 буквы или цифры после дефиса."
+    puts 'Пожалуйста введите три буквы или цифры в любом порядке, необязательный дефис и еще 2 буквы или цифры после дефиса.'
   end
 
   def cargo_train_ask
-    puts "Пожалуйста введите три буквы или цифры в любом порядке, необязательный дефис и еще 2 буквы или цифры после дефиса."
+    puts 'Пожалуйста введите три буквы или цифры в любом порядке, необязательный дефис и еще 2 буквы или цифры после дефиса.'
   end
 
 
   def variant_choose
-    puts "Choose variants"
+    puts 'Choose variants'
   end
 
   def train_exist
-    puts "train already exist"
+    puts 'train already exist'
   end
 
   def not_trains
     puts 'There is no trains'
   end
 
-  def train_type_choise_message
-    puts "Please enter train type"
-    puts "1. Passenger"
-    puts "2. Cargo"
+  def train_type_choice_message
+    puts 'Please enter train type'
+    puts '1. Passenger'
+    puts '2. Cargo'
   end
 
   def list_created_routes
@@ -434,7 +429,7 @@ class Interface
 
   def only_cargo_passenger
     puts 'Only cargo wagon can be added'
-    puts 'Only passanger wagon can be added'
+    puts 'Only passenger wagon can be added'
   end
 
   def number_wagon_remove
@@ -487,8 +482,7 @@ class Interface
     puts
   end
 
-
-  def wagon_added
+  def wagon_added(train_needed)
     puts "Wagon number #{number_wagon} has been added #{train_needed.number}"
   end
 
@@ -497,7 +491,7 @@ class Interface
   end
 
   def no_wagon_number(number_train)
-    puts "Theris no wagon with this number #{number_train} "
+    puts "There is no wagon with this number #{number_train} "
   end
 
   def station_for_train(number_train)
@@ -505,11 +499,11 @@ class Interface
   end
 
   def station_forward(current_station)
-    puts "Train has been mooved forward #{current_station}"
+    puts "Train has been moved forward #{current_station}"
   end
 
   def station_back(current_station)
-    puts "Train has been mooved back #{current_station}"
+    puts "Train has been moved back #{current_station}"
   end
 
   def train_number_type(number, train)
@@ -518,10 +512,6 @@ class Interface
 
   def free_capacity(wagon)
     puts " #{wagon.free_capacity} left"
-  end
-
-  def train_data
-    print train.number, " "
   end
 
   def train_pass(number)
@@ -537,14 +527,14 @@ class Interface
   end
 
   def route_number_display
-    print "Route number #{number_route}: "
+    print "Route number #{number_route}:"
   end
 
-  def input_route_numbre
-    print "Enter route number: "
+  def input_route_number
+    print 'Enter route number: '
   end
 
-  def enter_number (object_type)
+  def enter_number(object_type)
     puts "Enter number #{object_type}"
     gets.to_i
   end
@@ -555,35 +545,39 @@ class Interface
   end
 
   def pass_capacity
-    puts "Enter amount of free places in wagon"
+    puts 'Enter amount of free places in wagon'
     gets.to_i
   end
 
   def cargo_capacity
-    puts "Enter volume of cargo wagon"
+    puts 'Enter volume of cargo wagon'
     gets.to_i
   end
 
   def choose_wagon
-    puts "Choose wagon"
+    puts 'Choose wagon'
     gets.to_i
   end
 
   def count_seats_wagon
-    puts "Please enter ammount of seats"
+    puts 'Please enter amount of seats'
   end
 
   def capacity_wagon
-    puts "Please enter capacity for wagon"
+    puts 'Please enter capacity for wagon'
   end
 
   def detail_wagon(train, wagon)
-    if wagon.type == "Cargo"
-      puts "Number train: #{train.number}, number wagon: #{wagon.number}, type: #{wagon.type}, capacity: #{wagon.capacity},
-       take capacity: #{wagon.take_capacity}, free capacity: #{wagon.free_capacity}"
+    if wagon.type == 'Cargo'
+      puts "Number train: #{train.number}, number wagon: #{wagon.number},
+       type: #{wagon.type}, capacity: #{wagon.capacity},
+       take capacity: #{wagon.take_capacity},
+        free capacity: #{wagon.free_capacity}"
     else
-      puts "Number train: #{train.number}, number wagon: #{wagon.number}, type: #{wagon.type},
-       All places: #{wagon.capacity}, take : #{wagon.take_capacity}, free: #{wagon.free_capacity}"
+      puts "Number train: #{train.number}, number wagon: #{wagon.number},
+        type: #{wagon.type},
+       All places: #{wagon.capacity}, take : #{wagon.take_capacity},
+        free: #{wagon.free_capacity}"
     end
   end
 

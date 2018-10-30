@@ -16,9 +16,9 @@ class Route
   private
 
   def validate!
-    raise "This start station didnt exist" unless first_station.is_a? Station
-    raise "This end station didnt exist" unless last_station.is_a? Station
-    raise "First and last stations should be different" if first_station == last_station
+    raise 'This start station didnt exist' unless first_station.is_a? Station
+    raise 'This end station didnt exist' unless last_station.is_a? Station
+    raise 'First and last stations should be different' if first_station == last_station
   end
 
   public
@@ -28,12 +28,12 @@ class Route
   end
 
   def display_station
-    stations.each {|station| print station.name, " "}
+    stations.each { |station| print station.name, ' ' }
   end
 
   def del_station(station)
-    if first_station != station && last_station != station
-      @stations.delete(station)
+    @stations.delete(station)
+    unless [stations.first, stations.last].include?(station)
     end
   end
 
