@@ -1,3 +1,4 @@
+# start railway programme
 class Start
   attr_reader :stations, :trains, :routes, :wagons
 
@@ -23,14 +24,10 @@ class Start
   # @return [Object]
   def main_menu(item)
     case item
-    when 1
-      stations_management
-    when 2
-      routes_management_menu
-    when 3
-      trains_management_menu
-    when 4
-      wagons_management_menu
+    when 1 then stations_management
+    when 2 then routes_management_menu
+    when 3 then trains_management_menu
+    when 4 then wagons_management_menu
     else
       @interface.not_item_menu
     end
@@ -61,12 +58,10 @@ class Start
   # @return [Object]
   def create_station
     name = @interface.create_station_menu
-    if name.empty?
-      @interface.not_enter_anything
-    elsif stations_name_exist(name)
-      @interface.stations_name_exist
-    else
-      @interface.station_created if @stations << Station.new(name)
+    if stations_name_exist(name)
+      @interface.stations_name_taken
+    elsif @stations << Station.new(name)
+      @interface.station_created
     end
   rescue RuntimeError => e
     puts e.inspect
@@ -92,7 +87,8 @@ class Start
     elsif !stations_name_exist(name)
       @interface.not_station_for_remove
     else
-      @interface.station_removed if @stations.delete_if { |station| station.name == name }
+      @interface.station_removed if
+          @stations.delete_if { |station| station.name == name }
     end
   end
 
@@ -109,21 +105,18 @@ class Start
   def routes_management_menu
     loop do
       item = @interface.routes_management_menu
-      break if item == 0
+      break if item.zero?
       case item
-      when 1
-        create_route
-      when 2
-        look_routes
-      when 3
-        add_station_in_route
-      when 4
-        del_station_from_route
+      when 1 then create_route
+      when 2 then look_routes
+      when 3 then add_station_in_route
+      when 4 then del_station_from_route
       else
         @interface.not_item_menu
       end
     end
   end
+
 
   def create_route
     start_station_title = @interface.routes_first
@@ -142,14 +135,13 @@ class Start
   end
 
   def look_routes
-    if @routes.length == 0
+    if @routes.empty?
       @interface.none_route
     else
       number_route = 1
       @routes.each do |route|
         @interface.route_number_added(number_route)
-        route.display_station
-        number_route += 1
+        route.display_station number_route += 1
         @interface.puts_name
       end
     end
@@ -162,7 +154,7 @@ class Start
       @interface.not_route
     else
       name = @interface.enter_name_station
-      name_add_station = @stations.detect {|station| station.name == name}
+      name_add_station = @stations.detect { |station| station.name == name }
       if name_add_station
         @interface.station_added if
             @routes[number_route].add_station(name_add_station)
@@ -192,16 +184,11 @@ class Start
     loop do
       item = @interface.trains_management_menu
       break if item == 0
-
       case item
-      when 1
-        create_train
-      when 2
-        look_trains
-      when 3
-        check_route_to_train
-      when 4
-        check_train_before_move
+      when 1 then create_train
+      when 2 then look_trains
+      when 3 then check_route_to_train
+      when 4 then check_train_before_move
       else
         @interface.not_item_menu
       end
@@ -320,22 +307,14 @@ class Start
     loop do
       item = @interface.wagons_management_menu
       break if item.zero?
-
       case item
-      when 1 then
-        create_wagons
-      when 2 then
-        look_wagons
-      when 3 then
-        wagon_ticket_service
-      when 4 then
-        del_wagon_to_train
-      when 5 then
-        add_wagon_train_type
-      when 6 then
-        trains_information
-      when 7 then
-        station_information
+      when 1 then create_wagons
+      when 2 then look_wagons
+      when 3 then wagon_ticket_service
+      when 4 then del_wagon_to_train
+      when 5 then add_wagon_train_type
+      when 6 then trains_information
+      when 7 then station_information
       else
         @interface.not_enter_anything
       end
@@ -362,13 +341,13 @@ class Start
   def create_wagon_cargo(number)
     @interface.capacity_wagon
     capacity = gets.to_f
-    @interface.cargo_wagon_created(number) if @wagons << CargoWagon.new(number, capacity)
+    @interface.c_wagon_created(number) if @wagons << CargoWagon.new(number, capacity)
   end
 
   def create_wagon_passenger(number)
     @interface.capacity_wagon
     capacity = gets.to_f
-    @interface.passenger_wagon_created(number) if @wagons << PassengerWagon.new(number, capacity)
+    @interface.p_wagon_created(number) if @wagons << PassengerWagon.new(number, capacity)
   end
 
   def wagon_ticket_service
@@ -386,8 +365,7 @@ class Start
 
   def check_wagons(number, type)
     @wagons.any? do |wagon|
-      wagon.number == number &&
-          wagon.type == type && wagon.capacity == capacity
+      wagon.number == number && wagon.type == type && wagon.capacity == capacity
     end
   end
 
@@ -399,7 +377,7 @@ class Start
     if @wagons.empty?
       @interface.not_wagons
     else
-      @wagons.each { |wagon| @interface.show_wagon_type(wagon.number, wagon.type) }
+      @wagons.each { |wagon| @interface.show_type(wagon.number, wagon.type) }
     end
   end
 
@@ -476,10 +454,10 @@ class Start
 
   def trains_information
     @trains.each do |train|
-      unless train.route.nil?
-        train.send_wagon_to_block do |wagon|
-          @interface.detail_wagon(train, wagon)
-        end
+      next if train.route.nil?
+
+      train.send_wagon_to_block do |wagon|
+        @interface.detail_wagon(train, wagon)
       end
     end
   end
@@ -497,4 +475,3 @@ class Start
     end
   end
 end
-

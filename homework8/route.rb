@@ -1,8 +1,8 @@
+# route
 require_relative 'instance_counter'
 require_relative 'validation'
 
 class Route
-
   include InstanceCounter
   include Validation
   attr_reader :stations, :start_station, :end_station
@@ -18,7 +18,7 @@ class Route
   def validate!
     raise 'This start station didnt exist' unless first_station.is_a? Station
     raise 'This end station didnt exist' unless last_station.is_a? Station
-    raise 'First and last stations should be different' if first_station == last_station
+    raise 'First and last should be different' if first_station == last_station
   end
 
   public
@@ -44,5 +44,4 @@ class Route
   def last_station
     stations.last
   end
-
 end

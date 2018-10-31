@@ -1,3 +1,4 @@
+# train
 require_relative 'instance_counter'
 require_relative 'manufacturer'
 require_relative 'validation'
@@ -113,5 +114,4 @@ class Train
   def send_wagon_to_block
     @wagons.each { |wagon| yield wagon }
   end
-
 end

@@ -1,10 +1,10 @@
+# wagon
 require_relative 'manufacturer.rb'
 require_relative 'validation.rb'
 
 class Wagon
   include Manufacturer
   include Validation
-
   attr_reader :number, :type, :capacity, :busy_capacity
   FORMAT_NUMBER = /[0-9]{3}/
 

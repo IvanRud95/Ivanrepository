@@ -1,5 +1,5 @@
+# passenger_wagon
 class PassengerWagon < Wagon
-
   attr_reader :type
 
   def initialize(number, capacity)

@@ -1,8 +1,8 @@
+# station class
 require_relative 'instance_counter'
 require_relative 'validation'
 
 class Station
-
   include InstanceCounter
   include Validation
   attr_reader :trains, :name
@@ -39,16 +39,16 @@ class Station
   end
 
   def all_trains
-    trains.each {|train| puts "#{train.number} #{train.type}"}
+    trains.each { |train| puts "#{train.number} #{train.type}" }
   end
 
 
   def trains_by_type(type)
-    @trains.select {|train| train.type == type}
+    @trains.select { |train| train.type == type }
   end
 
   def send_train_to_block
-    @trains.each {|train| yield train}
+    @trains.each { |train| yield train }
   end
 
 end

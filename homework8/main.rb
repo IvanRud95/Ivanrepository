@@ -11,6 +11,6 @@ require_relative 'interface'
 require_relative 'instance_counter'
 require_relative 'manufacturer'
 require_relative 'validation'
-
+# main
 test = Start.new
 test.main

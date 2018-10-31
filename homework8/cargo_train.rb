@@ -1,3 +1,4 @@
+# cargo train
 class CargoTrain < Train
 
   def initialize(number)
@@ -12,4 +13,3 @@ class CargoTrain < Train
     super(wagon) if check_type_wagons?(wagon)
   end
 end
-

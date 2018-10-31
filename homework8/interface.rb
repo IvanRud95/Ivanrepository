@@ -1,3 +1,4 @@
+# interface
 class Interface
   require_relative 'wagon.rb'
 
@@ -117,7 +118,7 @@ class Interface
   end
 
   def trains_at_stations(station_needed)
-    station_needed.trains.each {|train| print train.number, " "}
+    station_needed.trains.each { |train| print train.number, '' }
     print 'rains at station'
   end
 
@@ -166,19 +167,19 @@ class Interface
     puts "Wagon number #{number_wagons} added to train #{number_train}"
   end
 
-  def wagon_created(type,number,capacity)
-    puts "#{type} wagon number #{number}, with volume/places #{capacity} created"
+  def wagon_created(type, number, capacity)
+    puts "#{type} wagon number #{number},with volume/places #{capacity} created"
   end
 
-  def show_wagon_details(number_wagon,type_wagon)
+  def show_wagon_details(number_wagon, type_wagon)
     puts "Wagon #{number_wagon} - #{type_wagon}"
   end
 
-  def passenger_wagon_created(number)
+  def p_wagon_created(number)
     puts "The wagon has been created #{number}"
   end
 
-  def cargo_wagon_created(number)
+  def c_wagon_created(number)
     puts "The wagon has been created #{number}"
   end
 
@@ -187,7 +188,8 @@ class Interface
   end
 
   def show_current_station_train(train_needed)
-    puts "Current station for train #{train_needed.number} is #{train_needed.current_station.name}"
+    puts "Current station for train #{train_needed.number}
+ is #{train_needed.current_station.name}"
   end
 
   def show_move_forward_station
@@ -199,7 +201,7 @@ class Interface
   end
 
   def show_trains_current_station(train)
-    puts "Текущая станция для поезда #{train.number} #{train.current_station.name} "
+    puts "Current station #{train.number} #{train.current_station.name} "
   end
 
   def trains_move
@@ -207,7 +209,6 @@ class Interface
     puts '2.Train moves backward'
     gets.to_i
   end
-
 
   def list_trains
     puts 'Trains list:'
@@ -271,7 +272,7 @@ class Interface
     gets.chomp
   end
 
-  def buy_tiсket_tittle
+  def buy_tiket_tittle
     puts 'Ticket has been bought'
   end
 
@@ -296,7 +297,7 @@ class Interface
     puts "#{number} - #{type}"
   end
 
-  def show_wagon_type (number, type)
+  def show_wagon_type(number, type)
     puts "#{number} - #{type}"
   end
 
@@ -341,13 +342,14 @@ class Interface
   end
 
   def pass_train_ask
-    puts 'Пожалуйста введите три буквы или цифры в любом порядке, необязательный дефис и еще 2 буквы или цифры после дефиса.'
+    puts 'Пожалуйста введите три буквы или цифры в любом порядке,
+ необязательный дефис и еще 2 буквы или цифры после дефиса.'
   end
 
   def cargo_train_ask
-    puts 'Пожалуйста введите три буквы или цифры в любом порядке, необязательный дефис и еще 2 буквы или цифры после дефиса.'
+    puts 'Пожалуйста введите три буквы или цифры в любом порядке,
+необязательный дефис и еще 2 буквы или цифры после дефиса.'
   end
-
 
   def variant_choose
     puts 'Choose variants'
@@ -562,21 +564,28 @@ class Interface
     puts 'Please enter amount of seats'
   end
 
+  def stations_name_taken
+    puts 'Station with this name already exist'
+  end
+
   def capacity_wagon
     puts 'Please enter capacity for wagon'
   end
 
   def detail_wagon(train, wagon)
-    if wagon.type == 'Cargo'
-      puts "Number train: #{train.number}, number wagon: #{wagon.number},
-       type: #{wagon.type}, capacity: #{wagon.capacity},
-       take capacity: #{wagon.take_capacity},
-        free capacity: #{wagon.free_capacity}"
-    else
-      puts "Number train: #{train.number}, number wagon: #{wagon.number},
-        type: #{wagon.type},
-       All places: #{wagon.capacity}, take : #{wagon.take_capacity},
-        free: #{wagon.free_capacity}"
-    end
+    detail_wagon_cargo(train, wagon) if wagon.type == 'cargo'
+    detail_wagon_passenger(train, wagon) if wagon.type == 'pas'
+  end
+
+  def detail_wagon_cargo(train, wagon)
+    puts "Number train: #{train.number}, number wagon: #{wagon.number},
+    type: #{wagon.type}, capacity: #{wagon.capacity},
+    capacity busy: #{wagon.busy_capacity}, free: #{wagon.free_capacity}"
+  end
+
+  def detail_wagon_passenger(train, wagon)
+    puts "Номер поезда: #{train.number}, номер вагона: #{wagon.number},
+    тип: #{wagon.type}, всего мест: #{wagon.capacity},
+    занято: #{wagon.busy_capacity}, свободно: #{wagon.free_capacity}"
   end
 end

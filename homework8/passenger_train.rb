@@ -1,3 +1,4 @@
+# passenger train
 class PassengerTrain < Train
 
   def initialize(number)
