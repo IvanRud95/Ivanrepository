@@ -6,4 +6,3 @@ class CargoWagon < Wagon
     super(number, 'Cargo', capacity)
   end
 end
-

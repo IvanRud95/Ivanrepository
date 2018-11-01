@@ -21,7 +21,6 @@ class Station
     validate!
   end
 
-
   private
 
   def validate!
@@ -42,7 +41,6 @@ class Station
     trains.each { |train| puts "#{train.number} #{train.type}" }
   end
 
-
   def trains_by_type(type)
     @trains.select { |train| train.type == type }
   end
@@ -50,5 +48,4 @@ class Station
   def send_train_to_block
     @trains.each { |train| yield train }
   end
-
 end

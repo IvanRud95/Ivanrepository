@@ -80,7 +80,6 @@ class Train
     end
   end
 
-
   def move_back
     if previous_station
       current_station.send_train(self)

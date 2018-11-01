@@ -1,8 +1,6 @@
 # start railway programme
 class Start
   attr_reader :stations, :trains, :routes, :wagons
-
-
   def initialize
     @stations = []
     @trains = []
@@ -86,12 +84,15 @@ class Start
       @interface.not_enter_anything
     elsif !stations_name_exist(name)
       @interface.not_station_for_remove
-    else
-      @interface.station_removed if
-          @stations.delete_if { |station| station.name == name }
+    elsif delete_station(name)
+      @interface.station_removed
     end
   end
 
+  def delete_station
+    @stations.delete_if { |station| station.name == name }
+  end
+  
   def search_station_needed(name)
     @stations.detect { |station| station.name == name }
   end
@@ -116,7 +117,6 @@ class Start
       end
     end
   end
-
 
   def create_route
     start_station_title = @interface.routes_first
