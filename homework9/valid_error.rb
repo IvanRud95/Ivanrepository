@@ -1,0 +1,2 @@
+class ValidError < RuntimeError
+end
