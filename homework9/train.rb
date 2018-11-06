@@ -10,7 +10,12 @@ class Train
   extend Acсessors
   attr_reader :type, :wagons, :route, :number, :speed, :current_station_index
   @@trains = {}
-  NUMBER_FORMAT = /^(\d|[a-z1-9]){3}-?(\d|[a-z1-9]){2}$/i
+  NUMBER_FORMAT_TRAIN = /^(\d|[a-z1-9]){3}-?(\d|[a-z1-9]){2}$/i
+
+  validate :number, :presence
+  validate :type, :presence
+  validate :number, :format, NUMBER_FORMAT_TRAIN
+  validate :type, :format, TYPE_FORMAT
 
   def find(train_number)
     trains[train_number]

@@ -1,13 +1,17 @@
 # station class
 require_relative 'instance_counter'
 require_relative 'validation'
-
+require_relative 'accessors'
 class Station
+
   include InstanceCounter
   include Validation
-  attr_reader :trains, :name
+  attr_reader :name, :trains
 
-  @@all_stations = []
+  attr_accessor_with_history :his
+
+  validate :name, :presence
+  validate :name, :type, String
 
   def self.all
     @@all_stations

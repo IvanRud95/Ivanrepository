@@ -2,7 +2,7 @@ module Acсessors
 
   def attr_accessor_with_history(*methods)
     methods.each do |method|
-      raise TypeError, 'method name  is not symbol' unless method.is_a?(Symbol)
+      raise TypeError, 'method name  is not  symbol' unless method.is_a?(Symbol)
       define_method(method) do
         instance_variable_get("@#{method}")
       end
