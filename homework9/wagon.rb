@@ -3,10 +3,18 @@ require_relative 'manufacturer.rb'
 require_relative 'validation.rb'
 
 class Wagon
+
   include Manufacturer
   include Validation
+
+  extend Acсessors
+
   attr_reader :number, :type, :capacity, :busy_capacity
-  FORMAT_NUMBER = /[0-9]{3}/
+  validate :number, :presence
+  validate :type, :presence
+  validate :capacity, :presence
+  validate :number, :format, NUMBER_FORMAT_WAGON
+  validate :type, :format, TYPE_FORMAT
 
   def initialize(number, type, capacity)
     @number = number

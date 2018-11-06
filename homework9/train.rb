@@ -7,6 +7,7 @@ class Train
   include Manufacturer
   include InstanceCounter
   include Validation
+  extend Acсessors
   attr_reader :type, :wagons, :route, :number, :speed, :current_station_index
   @@trains = {}
   NUMBER_FORMAT = /^(\d|[a-z1-9]){3}-?(\d|[a-z1-9]){2}$/i
