@@ -1,52 +1,60 @@
 module Validation
 
-  module ClassMethods
-    def validate(field, method, *params)
-      define_method("validate_#{field}_#{method}") do
-        send(method.to_sym, instance_variable_get("@#{field}".to_sym), *params)
-      end
-    end
-  end
-
-  module InstanceMethods
-    def validate!
-      public_methods.each { |method| send(method) if method =~ /^validate_/ }
-      true
-    end
-
-    def valid?
-      validate!
-    rescue
-      false
-    end
-
-    protected
-
-    def presence(value)
-      unless value.nil? || value == ''
-        raise ValidError, "Value can't be blank"
-      end
-      true
-    end
-
-    def format(value, reg_exp)
-      raise ValidError, 'Wrong value' unless value =~ reg_exp
-      true
-    end
-
-    def type(value, type_class)
-      raise ValidError, 'Wrong type' unless value.class == type_class
-      true
-    end
-
-    def positive(value)
-      raise ValidError, 'Negative value' if value < 0
-      true
-    end
-  end
-
   def self.included(receiver)
     receiver.extend ClassMethods
     receiver.send :include, InstanceMethods
   end
+
+  module ClassMethods
+    def validate(name_attr, type_valid, *args)
+      @validates ||= []
+      @valid = {}
+      @valid[name_attr] = {type: type_valid, args: args}
+      @validates << @valid
+    end
+  end
+
+  module InstanceMethods
+
+    private
+
+    def validate!
+      self.class.instance_variable_get('@validates').each do |rule|
+        rule.each do |name, params|
+          send("validate_#{params[:type]}", instance_variable_get("@#{name}"), params[:args])
+        end
+      end
+    end
+
+
+    def valid?
+      if validate!
+        true
+      else
+        false
+      end
+    end
+
+
+    def presence(value)
+      unless value.nil? || value == ''
+        raise "Value can't be blank"
+      end
+    end
+
+    def format(value, args)
+      if value.is_a?(String)
+        raise 'Wrong value' unless value.empty?
+      end
+    end
+
+    def type(value, args)
+      raise 'Wrong type' unless value.is_a? args[0]
+    end
+
+    def positive(value, args)
+      raise 'Negative value' if value.to_s !~ args[0]
+    end
+  end
 end
+

@@ -90,11 +90,11 @@ class Start
   end
 
   def delete_station
-    @stations.delete_if { |station| station.name == name }
+    @stations.delete_if {|station| station.name == name}
   end
-  
+
   def search_station_needed(name)
-    @stations.detect { |station| station.name == name }
+    @stations.detect {|station| station.name == name}
   end
 
   def routes_management
